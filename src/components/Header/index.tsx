@@ -9,7 +9,7 @@ export const Header = observer(()=>{
 
     return(
         <Flex justify={JustifyContent.SPACE_BETWEEN} alignItems={AlignItems.CENTER}>
-            <Title>Trivia Game!</Title>
+            <Title>Blitz!</Title>
             <Title>Coins: {store.coins}</Title>
         </Flex>
     );

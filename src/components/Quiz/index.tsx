@@ -83,8 +83,6 @@ export const Quiz = () => {
             setReveal(false);
         },1000)
     }
-    
-    console.log("Has Loaded: "+quizStore.hasLoaded);
 
     return useObserver(()=>(
         <Container>

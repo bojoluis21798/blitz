@@ -1,7 +1,7 @@
 import React, {Fragment} from "react";
 import {useStore} from "../../store";
 import {observer} from "mobx-react";
-import {Category, Container, StyledLink} from "./styles";
+import {Category, Container, StyledLink, Name} from "./styles";
 
 export const Categories = observer(() => {
     const {store} = useStore();
@@ -14,9 +14,12 @@ export const Categories = observer(() => {
             <Fragment>
                 {store.categories.map(
                 (category)=>
-                    <StyledLink to={"/quiz/"+category.id}>
-                        <Category key={category.id}>{category.name}</Category>
-                    </StyledLink>
+                    <Category key={category.id}>
+                        <StyledLink to={"/quiz/"+category.id}>
+                            <Name>{category.name}</Name>
+                        </StyledLink>
+                    </Category>
+                    
                 )}
             </Fragment>
         </Container>

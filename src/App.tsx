@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Categories, Header} from './components';
+import {Categories, Header, Quiz} from './components';
 import styled from "styled-components";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 
@@ -17,6 +17,9 @@ export const App = () => {
                 <Switch>
                     <Route exact path="/">
                         <Categories/>
+                    </Route>
+                    <Route exact path="/quiz/:id">
+                        <Quiz/>
                     </Route>
                 </Switch>
             </BrowserRouter>

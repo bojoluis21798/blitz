@@ -1,4 +1,5 @@
 import {Categories} from "./Categories";
 import {Header} from "./Header";
+import {Quiz} from "./Quiz";
 
-export {Categories, Header};
+export {Categories, Header, Quiz};

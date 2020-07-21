@@ -20,7 +20,6 @@ export class Store {
             this.categories = categories.map((item)=>{
                 if(item.name.indexOf(":") !== -1){
                     item.name = item.name.substring(item.name.indexOf(":")+2, item.name.length);
-                    return item;
                 }
                 return item;
             });

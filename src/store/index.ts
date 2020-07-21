@@ -5,6 +5,4 @@ const store = createContext({
     store: new Store()
 })
 
-console.log("creted instance");
-
 export const useStore = ()=> useContext(store);

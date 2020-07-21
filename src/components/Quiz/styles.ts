@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import {AnswerEval} from "./index"
+
+const border = `border: 1px solid black;`;
 
 export const Container = styled.div`
     display: flex;
@@ -6,5 +9,15 @@ export const Container = styled.div`
 `;
 
 export const Question = styled.div`
-    border: 1px solid black;
+    ${border}
+`;
+
+interface ChoicesProps {
+    eval:AnswerEval;
+    reveal:boolean;
+}
+
+export const Choices = styled.div<ChoicesProps>`
+    ${border}
+    background-color: ${props=>props.eval === AnswerEval.CORRECT && props.reveal ? `green`:`white`};
 `;

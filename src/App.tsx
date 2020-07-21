@@ -11,18 +11,18 @@ const StyleContainer = styled.div`
 export const App = () => {
 
     return(
-        <StyleContainer>
-            <Header/>
-            <BrowserRouter>
-                <Switch>
-                    <Route exact path="/">
-                        <Categories/>
-                    </Route>
-                    <Route exact path="/quiz/:id">
-                        <Quiz/>
-                    </Route>
-                </Switch>
-            </BrowserRouter>
-        </StyleContainer>
+        <BrowserRouter>
+            <StyleContainer>
+                <Header/>
+                    <Switch>
+                        <Route exact path="/">
+                            <Categories/>
+                        </Route>
+                        <Route exact path="/quiz/:id">
+                            <Quiz/>
+                        </Route>
+                    </Switch>
+            </StyleContainer>
+        </BrowserRouter>
     );
 };

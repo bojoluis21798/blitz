@@ -1,7 +1,8 @@
 import React, {Fragment} from "react";
 import {useStore} from "../../store";
 import {observer} from "mobx-react";
-import {Category, Container, StyledLink, Name} from "./styles";
+import {Category, Container, Name} from "./styles";
+import {StyledLink} from "../styles";
 
 export const Categories = observer(() => {
     const {store} = useStore();

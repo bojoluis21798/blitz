@@ -1,13 +1,13 @@
 import React, {Fragment} from "react";
 import {useStore} from "../../store";
 import {observer} from "mobx-react";
-import {Category, Grid} from "./styles";
+import {Category, Container} from "./styles";
 
 export const Categories = observer(() => {
     const {store} = useStore();
 
     return(
-        <Grid>
+        <Container>
             {
                 store.categories.length === 0 && <p>Loading..</p>
             }
@@ -17,6 +17,6 @@ export const Categories = observer(() => {
                 <Category key={category.id}>{category.name}</Category>
             )}
             </Fragment>
-        </Grid>
+        </Container>
     );
 })

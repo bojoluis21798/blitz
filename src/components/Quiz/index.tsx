@@ -32,12 +32,19 @@ export enum AnswerEval {
 export const Quiz = () => {
     const {id} = useParams();
 
+    // question length
+    const easyLength = 10;
+    const mediumLength = 7;
+    const hardLength = 3;
+    const maxLength = easyLength+mediumLength+hardLength;
+
+
     const quizStore = useLocalStore<IQuizStore>(()=>({
         questions: [],
         index: 0,
         hasCompleted: false,
         get hasLoaded(){
-            return this.questions.length > 0;
+            return this.questions.length === maxLength;
         },
         get currentQuestion(){ 
             return this.questions[this.index].question;
@@ -60,14 +67,40 @@ export const Quiz = () => {
     }))
 
     const [reveal, setReveal] = useState<boolean>(false);
+    const [hasFetchError, setHasFetchError] = useState<boolean>(false);
 
     useEffect(()=>{
-        fetch(`https://opentdb.com/api.php?amount=10&category=${id}&difficulty=easy&type=multiple`)
-        .then(response=>response.json())
-        .then(data=>{
-            quizStore.questions = data.results;
-            console.log(quizStore.questions);
-        })
+        const fetchResponses = async () => {
+            const settings = [
+                {
+                    difficulty:"easy",
+                    length: easyLength
+                }, {
+                    difficulty:"medium",
+                    length: mediumLength
+                }, {
+                    difficulty: "hard",
+                    length: hardLength
+                }];
+
+            let resultsMap = settings.map(async (setting)=>{
+                try{
+                    let response = await fetch(`https://opentdb.com/api.php?amount=${setting.length}&category=${id}&difficulty=${setting.difficulty}&type=multiple`);
+                    let data = await response.json();
+                    return data.results;
+                }catch(e){
+                    setHasFetchError(true)
+                };
+            })
+
+            let results = await Promise.all(resultsMap);
+
+            results.forEach((result)=>{
+                quizStore.questions = quizStore.questions.concat(result);
+            })
+        }
+
+        fetchResponses();
     },[]);
 
     let timer:NodeJS.Timeout = null;

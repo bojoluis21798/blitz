@@ -25,7 +25,7 @@ interface ChoicesProps {
     reveal:boolean;
 }
 
-export const Choices = styled.div<ChoicesProps>`
+export const Choices = styled.button<ChoicesProps>`
     ${border}
     background-color: ${props=>props.eval === AnswerEval.CORRECT && props.reveal ? `green`:`white`};
 `;

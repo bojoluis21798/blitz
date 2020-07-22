@@ -186,6 +186,7 @@ export const Quiz = () => {
                                     eval={quizStore.evaluateAnswer(choice)}
                                     reveal={reveal}
                                     onClick={handleChoiceClick}
+                                    disabled={reveal}
                             >{parse(choice)}</Choices>
                         )
                     }

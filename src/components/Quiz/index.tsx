@@ -3,6 +3,7 @@ import {useParams, Redirect} from "react-router-dom";
 import {Container, Question, Choices, Difficulty, Timer} from "./styles";
 import {useLocalStore, useObserver} from "mobx-react";
 import {when} from "mobx";
+import {useStore} from "../../store";
 import parse from "html-react-parser";
 
 interface IQuestion{
@@ -37,6 +38,7 @@ export enum AnswerEval {
 
 export const Quiz = () => {
     const {id} = useParams();
+    const {store} = useStore();  
 
     // question length
     const easyLength = 10;
@@ -165,7 +167,10 @@ export const Quiz = () => {
         }
     },[]);
 
-    function handleChoiceClick(){
+    function handleChoiceClick(choice:string, difficulty:string){
+        
+
+
         setReveal(true);
         waitID = setTimeout(()=>{
             quizStore.next();
@@ -185,7 +190,7 @@ export const Quiz = () => {
                             <Choices key={index} 
                                     eval={quizStore.evaluateAnswer(choice)}
                                     reveal={reveal}
-                                    onClick={handleChoiceClick}
+                                    onClick={(e)=>handleChoiceClick(choice, quizStore.difficulty)}
                                     disabled={reveal}
                             >{parse(choice)}</Choices>
                         )

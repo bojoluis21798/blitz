@@ -1,5 +1,5 @@
 import React, {useState, useEffect, Fragment} from "react";
-import {useParams} from "react-router-dom";
+import {useParams, Redirect} from "react-router-dom";
 import {Container, Question, Choices, Difficulty, Timer} from "./styles";
 import {useLocalStore, useObserver} from "mobx-react";
 import {when} from "mobx";
@@ -21,6 +21,7 @@ interface IQuizStore {
     timeRemaining: number;
     difficulty:string;
     hasLoaded:boolean;
+    hasFailed:boolean;
     hasCompleted:boolean;
     currentChoices:string[];
     next():void;
@@ -49,11 +50,13 @@ export const Quiz = () => {
 
     let timerID:NodeJS.Timeout = null;
     let waitID:NodeJS.Timeout = null;
+    let completedWaitID:NodeJS.Timeout = null;
 
     const quizStore = useLocalStore<IQuizStore>(()=>({
         questions: [],
         index: 0,
         hasCompleted: false,
+        hasFailed: false,
         timeRemaining: timeRemaining,
         get hasLoaded(){
             return this.questions.length === maxLength;
@@ -86,8 +89,7 @@ export const Quiz = () => {
                 if(this.timeRemaining > 0){
                     this.timeRemaining--;
                 } else {
-                    this.hasCompleted = true;
-                    console.log("has completed");
+                    this.hasFailed = true;
                     clearInterval(timerID);
                 }
             },1000);
@@ -100,6 +102,10 @@ export const Quiz = () => {
         }
     }))
 
+    const [reveal, setReveal] = useState<boolean>(false);
+    const [hasFetchError, setHasFetchError] = useState<boolean>(false);
+    const [shouldRedirect, setShouldRedirect] = useState<boolean>(false);
+
     useEffect(()=>{
         when(
             ()=>quizStore.hasLoaded,
@@ -107,13 +113,15 @@ export const Quiz = () => {
         );
 
         when(
-            ()=>quizStore.hasCompleted,
-            ()=>clearInterval(timerID)
+            ()=>quizStore.hasCompleted || quizStore.hasFailed,
+            ()=>{
+                clearInterval(timerID);
+                completedWaitID = setTimeout(()=>{
+                    setShouldRedirect(true);
+                },1000)
+            }
         );
     }, []);
-
-    const [reveal, setReveal] = useState<boolean>(false);
-    const [hasFetchError, setHasFetchError] = useState<boolean>(false);
 
     useEffect(()=>{
         const fetchResponses = async () => {
@@ -153,6 +161,7 @@ export const Quiz = () => {
         return ()=>{
             clearTimeout(waitID);
             clearInterval(timerID);
+            clearTimeout(completedWaitID);
         }
     },[]);
 
@@ -183,7 +192,22 @@ export const Quiz = () => {
                     <Difficulty>Difficulty: {quizStore.difficulty}</Difficulty>
                     <Timer>{quizStore.timeRemaining}</Timer>
                 </Fragment>
+            }
+
+            {
+                quizStore.hasCompleted &&
+                <p>Completed...</p>
             }     
+
+            {
+                quizStore.hasFailed && 
+                <p>Failed ...</p>
+            }
+
+            {
+                shouldRedirect &&
+                <Redirect to="/"/>
+            }
         </Container>
     ));
 }

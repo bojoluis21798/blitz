@@ -39,7 +39,8 @@ export const Quiz = () => {
     const mediumLength = 7;
     const hardLength = 3;
     const maxLength = easyLength+mediumLength+hardLength;
-
+    // wait time in before transitioning to the next question
+    const waitTime = 500;
 
     const quizStore = useLocalStore<IQuizStore>(()=>({
         questions: [],
@@ -120,7 +121,7 @@ export const Quiz = () => {
         timer = setTimeout(()=>{
             quizStore.next();
             setReveal(false);
-        },1000)
+        },waitTime)
     }
 
     return useObserver(()=>(

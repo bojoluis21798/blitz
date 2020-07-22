@@ -185,18 +185,17 @@ export const Quiz = () => {
     },[]);
 
     function handleChoiceClick(choice:string, difficulty:EDifficulty){
-        if(quizStore.evaluateAnswer(choice)===AnswerEval.CORRECT){
-            switch(difficulty){
-                case EDifficulty.EASY:
-                    store.addCoins(20);
-                    break;
-                case EDifficulty.MEDIUM:
-                    store.addCoins(30);
-                    break;
-                case EDifficulty.HARD:
-                    store.addCoins(40);
-                    break;
-            }
+        const scoreMultiplier = quizStore.evaluateAnswer(choice)===AnswerEval.CORRECT?1:-1;
+        switch(difficulty){
+            case EDifficulty.EASY:
+                store.addScore(1*scoreMultiplier);
+                break;
+            case EDifficulty.MEDIUM:
+                store.addScore(3*scoreMultiplier);
+                break;
+            case EDifficulty.HARD:
+                store.addScore(5*scoreMultiplier);
+                break;
         }
 
         setReveal(true);

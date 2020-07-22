@@ -12,7 +12,7 @@ export const Header = observer(()=>{
             <Title>
                 <StyledLink to="/">Blitz!</StyledLink>
             </Title>
-            <Title>Coins: {store.coins}</Title>
+            <Title>Score: {store.score}</Title>
         </Flex>
     );
 });

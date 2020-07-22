@@ -2,6 +2,7 @@ import React, {useState, useEffect, Fragment} from "react";
 import {useParams} from "react-router-dom";
 import {Container, Question, Choices} from "./styles";
 import {useLocalStore, useObserver} from "mobx-react";
+import parse from "html-react-parser";
 
 interface IQuestion{
     category:string;
@@ -81,7 +82,7 @@ export const Quiz = () => {
                 }, {
                     difficulty: "hard",
                     length: hardLength
-                }];
+            }];
 
             let resultsMap = settings.map(async (setting)=>{
                 try{
@@ -97,6 +98,7 @@ export const Quiz = () => {
 
             results.forEach((result)=>{
                 quizStore.questions = quizStore.questions.concat(result);
+                console.log(result);
             })
         }
 
@@ -124,13 +126,13 @@ export const Quiz = () => {
             {
                 quizStore.hasLoaded &&
                 <Fragment>
-                    <Question>Question: {quizStore.currentQuestion}</Question>
+                    <Question>Question: {parse(quizStore.currentQuestion)}</Question>
                     {quizStore.currentChoices.map((choice,index)=>
                             <Choices key={index} 
                                     eval={quizStore.evaluateAnswer(choice)}
                                     reveal={reveal}
                                     onClick={handleChoiceClick}
-                            >{choice}</Choices>
+                            >{parse(choice)}</Choices>
                         )
                     }
                 </Fragment>

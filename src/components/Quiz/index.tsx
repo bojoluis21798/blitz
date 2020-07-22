@@ -113,12 +113,14 @@ export const Quiz = () => {
     let timer:NodeJS.Timeout = null;
 
     useEffect(()=>{
-        return clearTimeout(timer);
-    });
+        return ()=>{
+            clearTimeout(waitID);
+        }
+    },[]);
 
     function handleChoiceClick(){
         setReveal(true);
-        timer = setTimeout(()=>{
+        waitID = setTimeout(()=>{
             quizStore.next();
             setReveal(false);
         },waitTime)

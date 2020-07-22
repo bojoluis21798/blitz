@@ -34,6 +34,8 @@ interface IQuizStore {
     next():void;
     evaluateAnswer(choice:string):AnswerEval;
     startTimer():void;
+    resetTimer():void;
+    pauseTimer():void;
 }
 
 export enum AnswerEval {
@@ -50,7 +52,6 @@ export const Quiz = () => {
     const easyLength = 10;
     const mediumLength = 7;
     const hardLength = 3;
-    const maxLength = easyLength+mediumLength+hardLength;
     // wait time in before transitioning to the next question
     const waitTime = 500;
     // Time given to answer question
@@ -70,9 +71,7 @@ export const Quiz = () => {
         hasCompleted: false,
         hasFailed: false,
         timeRemaining: timeRemaining,
-        get hasLoaded(){
-            return this.questions.length === maxLength;
-        },
+        hasLoaded: false,
         get currentQuestion(){ 
             return this.questions[this.index].question;
         },
@@ -94,7 +93,6 @@ export const Quiz = () => {
         },
         next(){
             if(this.index+1 < this.questions.length){
-                this.resetTimer();
                 this.index++;
             }else{
                 this.hasCompleted = true;
@@ -118,6 +116,9 @@ export const Quiz = () => {
             this.timeRemaining = timeRemaining;
 
             this.startTimer();
+        },
+        pauseTimer(){
+            clearInterval(timerID);
         }
     }))
 
@@ -187,6 +188,8 @@ export const Quiz = () => {
     },[]);
 
     function handleChoiceClick(choice:string, difficulty:EDifficulty){
+        quizStore.pauseTimer();
+        
         const scoreMultiplier = quizStore.evaluateAnswer(choice)===AnswerEval.CORRECT?1:-1;
         switch(difficulty){
             case EDifficulty.EASY:
@@ -203,6 +206,7 @@ export const Quiz = () => {
         setReveal(true);
         waitID = setTimeout(()=>{
             quizStore.next();
+            quizStore.resetTimer();
             setReveal(false);
         },waitTime)
     }

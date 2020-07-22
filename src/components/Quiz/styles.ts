@@ -12,6 +12,10 @@ export const Question = styled.div`
     ${border}
 `;
 
+export const Difficulty = styled.div`
+    ${border}
+`;
+
 interface ChoicesProps {
     eval:AnswerEval;
     reveal:boolean;

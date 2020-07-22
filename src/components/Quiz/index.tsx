@@ -1,6 +1,6 @@
 import React, {useState, useEffect, Fragment} from "react";
 import {useParams} from "react-router-dom";
-import {Container, Question, Choices} from "./styles";
+import {Container, Question, Choices, Difficulty} from "./styles";
 import {useLocalStore, useObserver} from "mobx-react";
 import parse from "html-react-parser";
 
@@ -17,6 +17,7 @@ interface IQuizStore {
     questions: IQuestion[];
     index: number;
     currentQuestion:string;
+    difficulty:string;
     hasLoaded:boolean;
     hasCompleted:boolean;
     currentChoices:string[];
@@ -55,6 +56,10 @@ export const Quiz = () => {
             choices.splice(Math.floor(Math.random()*10)%4, 0, this.questions[this.index].correct_answer);
             return choices;
         },
+        get difficulty(){
+            const difficulty = this.questions[this.index].difficulty;
+            return difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+        },
         next(){
             if(this.index+1 < this.questions.length){
                 this.index++;
@@ -82,7 +87,7 @@ export const Quiz = () => {
                 }, {
                     difficulty: "hard",
                     length: hardLength
-            }];
+                }];
 
             let resultsMap = settings.map(async (setting)=>{
                 try{
@@ -98,7 +103,6 @@ export const Quiz = () => {
 
             results.forEach((result)=>{
                 quizStore.questions = quizStore.questions.concat(result);
-                console.log(result);
             })
         }
 
@@ -135,6 +139,7 @@ export const Quiz = () => {
                             >{parse(choice)}</Choices>
                         )
                     }
+                    <Difficulty>Difficulty: {quizStore.difficulty}</Difficulty>
                 </Fragment>
             }     
         </Container>

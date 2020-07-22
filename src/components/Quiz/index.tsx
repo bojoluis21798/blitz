@@ -1,7 +1,8 @@
 import React, {useState, useEffect, Fragment} from "react";
 import {useParams} from "react-router-dom";
-import {Container, Question, Choices, Difficulty} from "./styles";
+import {Container, Question, Choices, Difficulty, Timer} from "./styles";
 import {useLocalStore, useObserver} from "mobx-react";
+import {when} from "mobx";
 import parse from "html-react-parser";
 
 interface IQuestion{
@@ -17,12 +18,14 @@ interface IQuizStore {
     questions: IQuestion[];
     index: number;
     currentQuestion:string;
+    timeRemaining: number;
     difficulty:string;
     hasLoaded:boolean;
     hasCompleted:boolean;
     currentChoices:string[];
     next():void;
     evaluateAnswer(choice:string):AnswerEval;
+    startTimer():void;
 }
 
 export enum AnswerEval {
@@ -41,11 +44,17 @@ export const Quiz = () => {
     const maxLength = easyLength+mediumLength+hardLength;
     // wait time in before transitioning to the next question
     const waitTime = 500;
+    // Time given to answer question
+    const timeRemaining = 15;
+
+    let timerID:NodeJS.Timeout = null;
+    let waitID:NodeJS.Timeout = null;
 
     const quizStore = useLocalStore<IQuizStore>(()=>({
         questions: [],
         index: 0,
         hasCompleted: false,
+        timeRemaining: timeRemaining,
         get hasLoaded(){
             return this.questions.length === maxLength;
         },
@@ -63,6 +72,7 @@ export const Quiz = () => {
         },
         next(){
             if(this.index+1 < this.questions.length){
+                this.resetTimer();
                 this.index++;
             }else{
                 this.hasCompleted = true;
@@ -70,8 +80,37 @@ export const Quiz = () => {
         },
         evaluateAnswer(choice){
             return (choice === this.questions[this.index].correct_answer)? AnswerEval.CORRECT: AnswerEval.WRONG;
+        },
+        startTimer(){
+            timerID = setInterval(()=>{
+                if(this.timeRemaining > 0){
+                    this.timeRemaining--;
+                } else {
+                    this.hasCompleted = true;
+                    console.log("has completed");
+                    clearInterval(timerID);
+                }
+            },1000);
+        },
+        resetTimer(){
+            clearInterval(timerID);
+            this.timeRemaining = timeRemaining;
+
+            this.startTimer();
         }
     }))
+
+    useEffect(()=>{
+        when(
+            ()=>quizStore.hasLoaded,
+            ()=>quizStore.startTimer()
+        );
+
+        when(
+            ()=>quizStore.hasCompleted,
+            ()=>clearInterval(timerID)
+        );
+    }, []);
 
     const [reveal, setReveal] = useState<boolean>(false);
     const [hasFetchError, setHasFetchError] = useState<boolean>(false);
@@ -110,11 +149,10 @@ export const Quiz = () => {
         fetchResponses();
     },[]);
 
-    let timer:NodeJS.Timeout = null;
-
     useEffect(()=>{
         return ()=>{
             clearTimeout(waitID);
+            clearInterval(timerID);
         }
     },[]);
 
@@ -143,6 +181,7 @@ export const Quiz = () => {
                         )
                     }
                     <Difficulty>Difficulty: {quizStore.difficulty}</Difficulty>
+                    <Timer>{quizStore.timeRemaining}</Timer>
                 </Fragment>
             }     
         </Container>

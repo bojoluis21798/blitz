@@ -6,10 +6,12 @@ interface ICategory{
     name: string;
 }
 
+const startingCoins = 100;
+
 export class Store {
-    public categories:ICategory[] = [];    
-    public hasError:boolean = false;
-    public coins:number = 0;
+    categories:ICategory[] = [];    
+    hasError:boolean = false;
+    coins:number = 0;
 
     constructor(){
         fetch("https://opentdb.com/api_category.php")
@@ -25,10 +27,24 @@ export class Store {
             });
         })
         .catch((error)=>this.hasError = true);
+
+        let coins = window.sessionStorage.getItem("coins");
+        if(coins){
+            this.coins = parseInt(coins);
+        }else {
+            window.sessionStorage.setItem("coins", startingCoins.toString());
+            this.coins = startingCoins;
+        }
+    }
+
+    addCoins(num:number){
+        this.coins += num;
+        window.sessionStorage.setItem("coins", this.coins.toString());
     }
 }
 
 decorate(Store, {
     categories: observable,
     hasError: observable,
+    coins: observable,
 })

@@ -170,7 +170,9 @@ export const Quiz = () => {
 
             results.forEach((result)=>{
                 quizStore.questions = quizStore.questions.concat(result);
-            })
+            });
+
+            quizStore.hasLoaded = true;
         }
 
         fetchResponses();

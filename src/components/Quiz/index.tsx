@@ -15,12 +15,18 @@ interface IQuestion{
     type:string;
 }
 
+export enum EDifficulty {
+    EASY = "Easy",
+    MEDIUM = "Medium",
+    HARD = "Hard"
+}
+
 interface IQuizStore {
     questions: IQuestion[];
     index: number;
     currentQuestion:string;
     timeRemaining: number;
-    difficulty:string;
+    difficulty:EDifficulty;
     hasLoaded:boolean;
     hasFailed:boolean;
     hasCompleted:boolean;
@@ -49,6 +55,10 @@ export const Quiz = () => {
     const waitTime = 500;
     // Time given to answer question
     const timeRemaining = 15;
+    // coin rewards for each correct answer per difficulty
+    const easyReward = 20;
+    const mediumReward = 30;
+    const hardReward = 50; 
 
     let timerID:NodeJS.Timeout = null;
     let waitID:NodeJS.Timeout = null;
@@ -73,7 +83,14 @@ export const Quiz = () => {
         },
         get difficulty(){
             const difficulty = this.questions[this.index].difficulty;
-            return difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+            switch(difficulty){
+                case "easy":
+                    return EDifficulty.EASY;
+                case "medium":
+                    return EDifficulty.MEDIUM;
+                case "hard":
+                    return EDifficulty.HARD;
+            }
         },
         next(){
             if(this.index+1 < this.questions.length){
@@ -167,9 +184,20 @@ export const Quiz = () => {
         }
     },[]);
 
-    function handleChoiceClick(choice:string, difficulty:string){
-        
-
+    function handleChoiceClick(choice:string, difficulty:EDifficulty){
+        if(quizStore.evaluateAnswer(choice)===AnswerEval.CORRECT){
+            switch(difficulty){
+                case EDifficulty.EASY:
+                    store.addCoins(20);
+                    break;
+                case EDifficulty.MEDIUM:
+                    store.addCoins(30);
+                    break;
+                case EDifficulty.HARD:
+                    store.addCoins(40);
+                    break;
+            }
+        }
 
         setReveal(true);
         waitID = setTimeout(()=>{

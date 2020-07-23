@@ -144,7 +144,7 @@ export const Quiz = () => {
 
     const [reveal, setReveal] = useState<boolean>(false);
     const [hasFetchError, setHasFetchError] = useState<boolean>(false);
-    const [shouldRedirect, setShouldRedirect] = useState<boolean>(false);
+    //const [shouldRedirect, setShouldRedirect] = useState<boolean>(false);
 
     useEffect(()=>{
         when(
@@ -268,10 +268,10 @@ export const Quiz = () => {
                 </>
             }     
 
-            {
+            {/*
                 shouldRedirect &&
                 <Redirect to="/"/>
-            }
+            */}
         </Styled.Container>
     ));
 }

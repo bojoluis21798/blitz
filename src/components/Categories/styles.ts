@@ -34,7 +34,7 @@ export const Title = styled.span`
 `;
 
 export const Description = styled.span`
-    font-size: 3em;
+    font-size: 2em;
     font-weight: 100;
     color: white;
 `;

@@ -14,13 +14,32 @@ export const Container = styled.div`
     flex-wrap: wrap;
 `;
 
-export const StyledLink = styled(Link)`
-    text-decoration: none;
-    color:black;
-`;
-
 export const Name = styled.div`
     font-size: 2em;
     text-align: center;
     padding: 1em;
+`;
+
+export const Title = styled.span`
+    font-size: 12em;
+    font-weight: 900;
+`;
+
+export const Description = styled.span`
+    font-size: 3em;
+    text-align: center;
+    color:white;
+    font-weight: 100;
+`;
+
+export const Header = styled.div`
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5em;
+    padding-bottom: 5em;
+    margin-bottom: 1em;
+    flex-direction: column;
+    background-color: #28587B;
 `;

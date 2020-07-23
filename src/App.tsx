@@ -4,8 +4,10 @@ import styled from "styled-components";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 
 const StyleContainer = styled.div`
-    font-family: 'Roboto';
-    padding: 1em;
+    font-family: 'Roboto', sans-serif;
+    @media (max-width: 768px){
+        font-size: 10px;
+    }
 `;
 
 export const App = () => {
@@ -13,7 +15,6 @@ export const App = () => {
     return(
         <BrowserRouter>
             <StyleContainer>
-                <Header/>
                 <Switch>
                     <Route exact path="/">
                         <Categories/>

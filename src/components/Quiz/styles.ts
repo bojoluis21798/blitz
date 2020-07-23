@@ -20,6 +20,10 @@ export const Timer = styled.div`
     ${border}
 `;
 
+export const Score = styled.div`
+    ${border}
+`;
+
 interface ChoicesProps {
     eval:AnswerEval;
     reveal:boolean;

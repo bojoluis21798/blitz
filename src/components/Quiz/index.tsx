@@ -1,6 +1,6 @@
 import React, {useState, useEffect, Fragment} from "react";
 import {useParams, Redirect} from "react-router-dom";
-import {Container, Question, Choices, Difficulty, Timer} from "./styles";
+import * as Styled from "./styles";
 import {useLocalStore, useObserver} from "mobx-react";
 import {when} from "mobx";
 import {useStore} from "../../store";
@@ -218,25 +218,26 @@ export const Quiz = () => {
     }
 
     return useObserver(()=>(
-        <Container>
+        <Styled.Container>
             {!quizStore.hasLoaded && <p>Loading...</p>}
 
             {
                 quizStore.hasLoaded &&
-                <Fragment>
-                    <Question>Question: {parse(quizStore.currentQuestion)}</Question>
+                <>
+                    <Styled.Question>Question: {parse(quizStore.currentQuestion)}</Styled.Question>
                     {quizStore.currentChoices.map((choice,index)=>
-                            <Choices key={index} 
+                            <Styled.Choices key={index} 
                                     eval={quizStore.evaluateAnswer(choice)}
                                     reveal={reveal}
                                     onClick={(e)=>handleChoiceClick(choice, quizStore.difficulty)}
                                     disabled={reveal}
-                            >{parse(choice)}</Choices>
+                            >{parse(choice)}</Styled.Choices>
                         )
                     }
-                    <Difficulty>Difficulty: {quizStore.difficulty}</Difficulty>
-                    <Timer>{quizStore.timeRemaining}</Timer>
-                </Fragment>
+                    <Styled.Difficulty>Difficulty: {quizStore.difficulty}</Styled.Difficulty>
+                    <Styled.Timer>{quizStore.timeRemaining}</Styled.Timer>
+                    <Styled.Score>{quizStore.score}</Styled.Score>
+                </>
             }
 
             {
@@ -253,6 +254,6 @@ export const Quiz = () => {
                 shouldRedirect &&
                 <Redirect to="/"/>
             }
-        </Container>
+        </Styled.Container>
     ));
 }

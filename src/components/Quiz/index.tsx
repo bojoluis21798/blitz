@@ -32,6 +32,11 @@ interface IQuizStore {
     hasCompleted:boolean;
     score:number;
     currentChoices:string[];
+    correctCount: {
+        easy: number;
+        medium: number;
+        hard: number;
+    },
     addScore(num:number):void;
     next():void;
     evaluateAnswer(choice:string):AnswerEval;
@@ -75,6 +80,11 @@ export const Quiz = () => {
         timeRemaining: timeRemaining,
         hasLoaded: false,
         score: 0,
+        correctCount: {
+            easy: 0,
+            medium: 0,
+            hard: 0,
+        },
         get currentQuestion(){ 
             return this.questions[this.index].question;
         },
@@ -199,12 +209,15 @@ export const Quiz = () => {
         if(quizStore.evaluateAnswer(choice)===AnswerEval.CORRECT){
             switch(difficulty){
                 case EDifficulty.EASY:
+                    quizStore.correctCount.easy++;
                     quizStore.addScore(1);
                     break;
                 case EDifficulty.MEDIUM:
+                    quizStore.correctCount.medium++;
                     quizStore.addScore(3);
                     break;
                 case EDifficulty.HARD:
+                    quizStore.correctCount.hard++;
                     quizStore.addScore(5);
                     break;
             }
@@ -242,7 +255,10 @@ export const Quiz = () => {
 
             {
                 quizStore.hasCompleted &&
-                <p>Completed...</p>
+                <div>
+                    <h1>Your Final Score: {quizStore.score}</h1>
+                    <h1>Easy: </h1>
+                </div>
             }     
 
             {

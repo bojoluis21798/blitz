@@ -42,6 +42,11 @@ export const Description = styled.span`
 export const Container = styled.div`
     z-index: 2;
     position:absolute;
+    display:flex;
+    flex-flow: wrap;
+    align-items:center;
+    justify-content:center;
+    box-shadow: 0 -5px 20px 5px black;
     width: 100%;
     top: 80%;
     background-color: white;

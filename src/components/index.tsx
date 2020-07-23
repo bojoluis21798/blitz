@@ -2,4 +2,4 @@ import {Categories} from "./Categories";
 import {Header} from "./Header";
 import {Quiz} from "./Quiz";
 
-export {Categories, Header, Quiz};
+export {Categories, Quiz};

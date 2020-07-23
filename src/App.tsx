@@ -13,14 +13,17 @@ const StyleContainer = styled.div`
 export const App = () => {
 
     return(
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <StyleContainer>
                 <Switch>
-                    <Route exact path={process.env.PUBLIC_URL + '/'}>
+                    <Route exact path="/">
                         <Categories/>
                     </Route>
-                    <Route exact path={process.env.PUBLIC_URL + "/quiz/:id"}>
+                    <Route path="/quiz/:id">
                         <Quiz/>
+                    </Route>
+                    <Route path="*">
+                        <p>Error</p>
                     </Route>
                 </Switch>
             </StyleContainer>

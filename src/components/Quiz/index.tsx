@@ -70,7 +70,7 @@ const hardReward = 50;
 //Timeout IDs
 let timerID:NodeJS.Timeout = null;
 let waitID:NodeJS.Timeout = null;
-let completedWaitID:NodeJS.Timeout = null;
+//let completedWaitID:NodeJS.Timeout = null;
 
 export const Quiz = () => {
     const {id} = useParams();
@@ -156,9 +156,9 @@ export const Quiz = () => {
             ()=>quizStore.hasCompleted || quizStore.hasFailed,
             ()=>{
                 clearInterval(timerID);
-                completedWaitID = setTimeout(()=>{
+                /*completedWaitID = setTimeout(()=>{
                     setShouldRedirect(true);
-                },1000)
+                },1000)*/
             }
         );
     }, []);
@@ -203,7 +203,7 @@ export const Quiz = () => {
         return ()=>{
             clearTimeout(waitID);
             clearInterval(timerID);
-            clearTimeout(completedWaitID);
+            //clearTimeout(completedWaitID);
         }
     },[]);
 

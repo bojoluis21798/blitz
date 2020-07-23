@@ -39,7 +39,7 @@ export const Categories = () => {
                             hoverColor={getColor()} 
                             key={category.id}
                         >
-                            <StyledLink to={"/quiz/"+category.id}>
+                            <StyledLink to={process.env.PUBLIC_URL + "/quiz/"+category.id}>
                                 <S.Name>{category.name}</S.Name>
                             </StyledLink>
                         </S.Category>

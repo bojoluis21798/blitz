@@ -16,10 +16,10 @@ export const App = () => {
         <BrowserRouter>
             <StyleContainer>
                 <Switch>
-                    <Route exact path="/">
+                    <Route exact path={process.env.PUBLIC_URL + '/'}>
                         <Categories/>
                     </Route>
-                    <Route exact path="/quiz/:id">
+                    <Route exact path={process.env.PUBLIC_URL + "/quiz/:id"}>
                         <Quiz/>
                     </Route>
                 </Switch>

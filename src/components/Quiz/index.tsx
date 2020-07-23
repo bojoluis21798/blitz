@@ -54,6 +54,10 @@ export enum AnswerEval {
 const easyLength = 10;
 const mediumLength = 7;
 const hardLength = 3;
+// points added for each difficulty
+const easyPoints = 1;
+const mediumPoints = 3;
+const hardPoints = 5;
 // wait time in before transitioning to the next question
 const waitTime = 500;
 // Time given to answer question
@@ -210,15 +214,15 @@ export const Quiz = () => {
             switch(difficulty){
                 case EDifficulty.EASY:
                     quizStore.correctCount.easy++;
-                    quizStore.addScore(1);
+                    quizStore.addScore(easyPoints);
                     break;
                 case EDifficulty.MEDIUM:
                     quizStore.correctCount.medium++;
-                    quizStore.addScore(3);
+                    quizStore.addScore(mediumPoints);
                     break;
                 case EDifficulty.HARD:
                     quizStore.correctCount.hard++;
-                    quizStore.addScore(5);
+                    quizStore.addScore(hardPoints);
                     break;
             }
         }
@@ -235,7 +239,7 @@ export const Quiz = () => {
             {!quizStore.hasLoaded && <p>Loading...</p>}
 
             {
-                quizStore.hasLoaded &&
+                (quizStore.hasLoaded && !(quizStore.hasFailed || quizStore.hasCompleted)) &&
                 <>
                     <Styled.Question>Question: {parse(quizStore.currentQuestion)}</Styled.Question>
                     {quizStore.currentChoices.map((choice,index)=>
@@ -254,17 +258,15 @@ export const Quiz = () => {
             }
 
             {
-                quizStore.hasCompleted &&
-                <div>
+                (quizStore.hasCompleted || quizStore.hasFailed) &&
+                <>
                     <h1>Your Final Score: {quizStore.score}</h1>
-                    <h1>Easy: </h1>
-                </div>
+                    <h1>Easy: {quizStore.correctCount.easy} x {easyPoints}</h1>
+                    <h1>Medium: {quizStore.correctCount.medium} x {mediumPoints}</h1>
+                    <h1>Hard: {quizStore.correctCount.hard} x {hardPoints}</h1>
+                    {quizStore.hasCompleted ? <h1>Completed</h1>:<h1>Failed</h1>}
+                </>
             }     
-
-            {
-                quizStore.hasFailed && 
-                <p>Failed ...</p>
-            }
 
             {
                 shouldRedirect &&

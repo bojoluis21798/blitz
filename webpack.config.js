@@ -23,8 +23,8 @@ module.exports = {
         loader: "source-map-loader",
       },
       {
-        test: /\.css$/,
-        loader: "css-loader",
+        test: /\.(png|jpe?g|gif)$/,
+        loader: "file-loader",
       },
     ],
   },

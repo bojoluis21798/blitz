@@ -235,12 +235,12 @@ export const Quiz = () => {
     }
 
     return useObserver(()=>(
-        <Styled.Container>
+        <>    
             {!quizStore.hasLoaded && <p>Loading...</p>}
 
             {
                 (quizStore.hasLoaded && !(quizStore.hasFailed || quizStore.hasCompleted)) &&
-                <>
+                <Styled.Container>
                     <Styled.Question>Question: {parse(quizStore.currentQuestion)}</Styled.Question>
                     {quizStore.currentChoices.map((choice,index)=>
                             <Styled.Choices key={index} 
@@ -254,7 +254,7 @@ export const Quiz = () => {
                     <Styled.Difficulty>Difficulty: {quizStore.difficulty}</Styled.Difficulty>
                     <Styled.Timer>{quizStore.timeRemaining}</Styled.Timer>
                     <Styled.Score>{quizStore.score}</Styled.Score>
-                </>
+                </Styled.Container>
             }
 
             {
@@ -272,6 +272,6 @@ export const Quiz = () => {
                 shouldRedirect &&
                 <Redirect to="/"/>
             */}
-        </Styled.Container>
+        </>
     ));
 }

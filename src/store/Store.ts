@@ -9,7 +9,6 @@ interface ICategory{
 export class Store {
     categories:ICategory[] = [];    
     hasError:boolean = false;
-    score:number = 0;
 
     constructor(){
         fetch("https://opentdb.com/api_category.php")
@@ -25,23 +24,10 @@ export class Store {
             });
         })
         .catch((error)=>this.hasError = true);
-
-        let score = window.sessionStorage.getItem("score");
-        if(score){
-            this.score = parseInt(score);
-        }else {
-            window.sessionStorage.setItem("score", "0");
-        }
-    }
-
-    addScore(num:number){
-        this.score += num;
-        window.sessionStorage.setItem("coins", this.score.toString());
     }
 }
 
 decorate(Store, {
     categories: observable,
     hasError: observable,
-    score: observable,
 })

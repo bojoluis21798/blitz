@@ -30,7 +30,9 @@ interface IQuizStore {
     hasLoaded:boolean;
     hasFailed:boolean;
     hasCompleted:boolean;
+    score:number;
     currentChoices:string[];
+    addScore(num:number):void;
     next():void;
     evaluateAnswer(choice:string):AnswerEval;
     startTimer():void;
@@ -43,27 +45,27 @@ export enum AnswerEval {
     WRONG = "wrong",
 }
 
+// question length
+const easyLength = 10;
+const mediumLength = 7;
+const hardLength = 3;
+// wait time in before transitioning to the next question
+const waitTime = 500;
+// Time given to answer question
+const timeRemaining = 15;
+// coin rewards for each correct answer per difficulty
+const easyReward = 20;
+const mediumReward = 30;
+const hardReward = 50; 
+
+//Timeout IDs
+let timerID:NodeJS.Timeout = null;
+let waitID:NodeJS.Timeout = null;
+let completedWaitID:NodeJS.Timeout = null;
 
 export const Quiz = () => {
     const {id} = useParams();
-    const {store} = useStore();  
-
-    // question length
-    const easyLength = 10;
-    const mediumLength = 7;
-    const hardLength = 3;
-    // wait time in before transitioning to the next question
-    const waitTime = 500;
-    // Time given to answer question
-    const timeRemaining = 15;
-    // coin rewards for each correct answer per difficulty
-    const easyReward = 20;
-    const mediumReward = 30;
-    const hardReward = 50; 
-
-    let timerID:NodeJS.Timeout = null;
-    let waitID:NodeJS.Timeout = null;
-    let completedWaitID:NodeJS.Timeout = null;
+    const {store} = useStore();      
 
     const quizStore = useLocalStore<IQuizStore>(()=>({
         questions: [],
@@ -72,6 +74,7 @@ export const Quiz = () => {
         hasFailed: false,
         timeRemaining: timeRemaining,
         hasLoaded: false,
+        score: 0,
         get currentQuestion(){ 
             return this.questions[this.index].question;
         },
@@ -90,6 +93,9 @@ export const Quiz = () => {
                 case "hard":
                     return EDifficulty.HARD;
             }
+        },
+        addScore(num){
+            this.score += num;
         },
         next(){
             if(this.index+1 < this.questions.length){
@@ -190,19 +196,19 @@ export const Quiz = () => {
     function handleChoiceClick(choice:string, difficulty:EDifficulty){
         quizStore.pauseTimer();
         
-        const scoreMultiplier = quizStore.evaluateAnswer(choice)===AnswerEval.CORRECT?1:-1;
-        switch(difficulty){
-            case EDifficulty.EASY:
-                store.addScore(1*scoreMultiplier);
-                break;
-            case EDifficulty.MEDIUM:
-                store.addScore(3*scoreMultiplier);
-                break;
-            case EDifficulty.HARD:
-                store.addScore(5*scoreMultiplier);
-                break;
+        if(quizStore.evaluateAnswer(choice)===AnswerEval.CORRECT){
+            switch(difficulty){
+                case EDifficulty.EASY:
+                    quizStore.addScore(1);
+                    break;
+                case EDifficulty.MEDIUM:
+                    quizStore.addScore(3);
+                    break;
+                case EDifficulty.HARD:
+                    quizStore.addScore(5);
+                    break;
+            }
         }
-
         setReveal(true);
         waitID = setTimeout(()=>{
             quizStore.next();

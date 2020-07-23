@@ -3,7 +3,8 @@ import {Link} from "react-router-dom";
 
 export const Category = styled.div`
     flex: 1,1,0;
-    border:1px solid black;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px black;
     margin: 1em;
 `; 
 
@@ -19,6 +20,9 @@ export const Header = styled.div`
     height: 100%;
     width: 100%;
     text-align:center;
+    background-image: url('../../static/assets/background.jpg');
+    background-size: 100% 80%;
+    background-repeat: no-repeat;
     background-color: #28587B;
 `;
 

@@ -4,8 +4,15 @@ import {useObserver} from "mobx-react";
 import * as S from "./styles";
 import {StyledLink} from "../styles";
 
+
 export const Categories = () => {
     const {store} = useStore();
+
+    function getColor(){ 
+        return "hsl(" + 360 * Math.random() + ',' +
+                   '90%,' + 
+                   (40 + 15 * Math.random()) + '%)'
+    }
 
     return useObserver(()=>(
         <>
@@ -28,7 +35,10 @@ export const Categories = () => {
                 <Fragment>
                     {store.categories.map(
                     (category)=>
-                        <S.Category key={category.id}>
+                        <S.Category 
+                            hoverColor={getColor()} 
+                            key={category.id}
+                        >
                             <StyledLink to={"/quiz/"+category.id}>
                                 <S.Name>{category.name}</S.Name>
                             </StyledLink>

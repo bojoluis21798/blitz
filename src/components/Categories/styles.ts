@@ -1,17 +1,28 @@
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 
-export const Category = styled.div`
+interface CategoryProps {
+    hoverColor: string;
+}
+export const Category = styled.div<CategoryProps>`
     flex: 1,1,0;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 1px 1px 5px black;
     margin: 1em;
+    background-color: white;
+    &:hover {
+        background-color: ${props=>props.hoverColor};
+    };
+    transition: 0.3s;
 `; 
 
 export const Name = styled.div`
     font-size: 2em;
     text-align: center;
     padding: 1em;
+    &:hover{
+        color:white;
+    }
 `;
 
 export const Header = styled.div`

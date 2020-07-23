@@ -15,7 +15,7 @@ export const Categories = () => {
                 </S.Title>
                 <S.Description>
                     Trivia game <br></br>
-                    Using <a href="https://opentdb.com/">Open Trivia API</a><br></br>
+                    using <S.Anchor href="https://opentdb.com/">Open Trivia API</S.Anchor><br></br>
                 </S.Description>
             </S.Header>
             <S.Container>

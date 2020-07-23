@@ -43,3 +43,7 @@ export const Header = styled.div`
     flex-direction: column;
     background-color: #28587B;
 `;
+
+export const Anchor = styled.a`
+    color: #BEDCFE
+`;

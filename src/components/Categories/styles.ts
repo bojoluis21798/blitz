@@ -7,41 +7,44 @@ export const Category = styled.div`
     margin: 1em;
 `; 
 
-export const Container = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-`;
-
 export const Name = styled.div`
     font-size: 2em;
     text-align: center;
     padding: 1em;
 `;
 
+export const Header = styled.div`
+    position:fixed;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    text-align:center;
+    background-color: #28587B;
+`;
+
+export const TitleContainer = styled.div`
+    position:relative;
+    top: 20%;
+`;
+
 export const Title = styled.span`
-    font-size: 12em;
+    font-size: 10em;
     font-weight: 900;
+    color:white;
 `;
 
 export const Description = styled.span`
     font-size: 3em;
-    text-align: center;
-    color:white;
     font-weight: 100;
+    color: white;
 `;
 
-export const Header = styled.div`
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 5em;
-    padding-bottom: 5em;
-    margin-bottom: 1em;
-    flex-direction: column;
-    background-color: #28587B;
+export const Container = styled.div`
+    z-index: 2;
+    position:absolute;
+    width: 100%;
+    top: 80%;
+    background-color: white;
 `;
 
 export const Anchor = styled.a`

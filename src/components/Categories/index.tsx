@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {useStore} from "../../store";
 import {useObserver} from "mobx-react";
 import * as S from "./styles";
@@ -10,13 +10,16 @@ export const Categories = () => {
     return useObserver(()=>(
         <>
             <S.Header>
-                <S.Title>
-                    Blitz!
-                </S.Title>
-                <S.Description>
-                    Trivia game <br></br>
-                    using <S.Anchor href="https://opentdb.com/">Open Trivia API</S.Anchor><br></br>
-                </S.Description>
+                <S.TitleContainer>
+                    <S.Title>
+                        Blitz!
+                    </S.Title>
+                    <br></br>
+                    <S.Description>
+                        Trivia game <br></br>
+                        using <S.Anchor href="https://opentdb.com/">Open Trivia API</S.Anchor><br></br>
+                    </S.Description>
+                </S.TitleContainer>
             </S.Header>
             <S.Container>
                 {

@@ -34,8 +34,8 @@ export const Header = styled.div`
     width: 100%;
     text-align:center;
     background-image: url(${Image.default});
-    background-size: 100% 80%;
     background-repeat: no-repeat;
+    background-size: 100% 100%;
     background-color: #28587B;
 `;
 

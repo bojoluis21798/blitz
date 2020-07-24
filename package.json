@@ -9,7 +9,7 @@
     "start": "webpack-dev-server --open",
     "postinstall": "rm -rf ./node_modules/@types/react-native",
     "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "firebase deploy"
   },
   "keywords": [],
   "author": "",

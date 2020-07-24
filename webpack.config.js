@@ -9,7 +9,7 @@ module.exports = {
     filename: "bundle.js",
   },
   resolve: {
-    extensions: [".js", ".jsx", ".json", ".ts", ".tsx", ".css", ".jpg"],
+    extensions: [".js", ".jsx", ".json", ".ts", ".tsx", ".css", ".jpg", ".png"],
   },
   module: {
     rules: [
@@ -23,7 +23,7 @@ module.exports = {
         loader: "source-map-loader",
       },
       {
-        test: /\.(jpg)$/,
+        test: /\.(jpg|png)$/,
         loader: "file-loader",
       },
     ],

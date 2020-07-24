@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 
+const Image = require("../../assets/background.jpg");
+
 interface CategoryProps {
     hoverColor: string;
 }
@@ -31,7 +33,7 @@ export const Header = styled.div`
     height: 100%;
     width: 100%;
     text-align:center;
-    background-image: url('../../static/assets/background.jpg');
+    background-image: url(${Image.default});
     background-size: 100% 80%;
     background-repeat: no-repeat;
     background-color: #28587B;

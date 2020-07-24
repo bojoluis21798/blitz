@@ -4,27 +4,23 @@ import {Link} from "react-router-dom";
 const Image = require("../../assets/background.jpg");
 
 interface CategoryProps {
-    hoverColor: string;
+    color: string;
 }
 export const Category = styled.div<CategoryProps>`
     flex: 1,1,0;
     border-radius: 10px;
     box-shadow: 1px 1px 5px black;
     margin: 1em;
-    background-color: white;
-    &:hover {
-        background-color: ${props=>props.hoverColor};
-    };
+    background-color: ${props=>props.color};
     transition: 0.3s;
 `; 
 
 export const Name = styled.div`
-    font-size: 2em;
+    font-size: 2.5em;
+    font-weight: 600;
     text-align: center;
-    padding: 1em;
-    &:hover{
-        color:white;
-    }
+    padding: 0.8em;
+    color:white;
 `;
 
 export const Header = styled.div`
@@ -50,28 +46,44 @@ export const Title = styled.span`
     color:white;
 `;
 
-export const Description = styled.span`
+export const Text = styled.span`
     font-size: 2em;
     font-weight: 100;
     color: white;
+`;
+
+export const CategoryLabel =styled(Text)`
+    font-size: 5em;
+    text-decoration: underline;
+    font-weight: 600;
+    color: black;
+    margin-left:0.5em;
 `;
 
 interface BodyProps{
     show: boolean;
 }
 export const Body = styled.div<BodyProps>`
-    display: ${props=>props.show?"block":"none"};
-    top: ${props=>props.show?80:100}%;
+    padding-top: 1em;
+    top: 100%;
+    display: hidden;
+    display: ${props=>props.show && "flex"};
+    flex-direction:column;
+    align-items: center;
+    top: ${props=>props.show && 70}%;
     transition: 1s;
     z-index: 2;
     position:absolute;
+    box-shadow: 0 -5px 20px 5px black;
+    width: 100%;
+    background-color: white;
+`;
+
+export const CategoryWrap = styled.div`
     display:flex;
     flex-flow: wrap;
     align-items:center;
     justify-content:center;
-    box-shadow: 0 -5px 20px 5px black;
-    width: 100%;
-    background-color: white;
 `;
 
 export const Anchor = styled.a`

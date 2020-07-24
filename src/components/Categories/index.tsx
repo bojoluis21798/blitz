@@ -14,11 +14,12 @@ export const Categories = () => {
         ));
     },[]);
 
-    function getColor(){ 
-        return "hsl(" + 360 * Math.random() + ',' +
-                   '90%,' + 
-                   (40 + 15 * Math.random()) + '%)'
+    function getColor(index:number){ 
+        const step = 360/store.categories.length;
+        return "hsl(" + (index*step) + ',' + '90%, 35%)'
     }
+
+    const show = store.categories.length > 0;
 
     return useObserver(()=>(
         <div>
@@ -28,25 +29,29 @@ export const Categories = () => {
                         Blitz!
                     </S.Title>
                     <br></br>
-                    <S.Description>
-                        Trivia game <br></br>
+                    <S.Text>
+                        Trivia game
                         using <S.Anchor href="https://opentdb.com/">Open Trivia API</S.Anchor><br></br>
-                    </S.Description>
+                    </S.Text>
                 </S.TitleContainer>
             </S.Header>
-            <S.Body show={store.categories.length>0}>
-                {store.categories.map(
-                (category)=>
+            <S.Body show={show}>
+                {show &&
+                    <S.CategoryLabel>Categories</S.CategoryLabel>
+                }
+                <S.CategoryWrap>
+                    {store.categories.map(
+                    (category,index)=>
                     <S.Category 
-                        hoverColor={getColor()} 
+                        color={getColor(index)} 
                         key={category.id}
                     >
                         <StyledLink to={"/quiz/"+category.id}>
                             <S.Name>{category.name}</S.Name>
                         </StyledLink>
                     </S.Category>
-                    
-                )}
+                    )}
+                </S.CategoryWrap>
             </S.Body>
         </div>
     ))

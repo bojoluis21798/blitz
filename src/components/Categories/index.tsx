@@ -16,7 +16,7 @@ export const Categories = () => {
 
     function getColor(index:number){ 
         const step = 360/store.categories.length;
-        return "hsl(" + (index*step) + ',' + '90%, 35%)'
+        return "hsl(" + (index*step) + ',' + '90%, 25%)'
     }
 
     const show = store.categories.length > 0;

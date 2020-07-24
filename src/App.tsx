@@ -6,7 +6,7 @@ import {BrowserRouter, Switch, Route} from "react-router-dom";
 const StyleContainer = styled.div`
     font-family: 'Roboto', sans-serif;
     @media (max-width: 768px){
-        font-size: 12px;
+        font-size: 10px;
     }
 `;
 

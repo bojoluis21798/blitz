@@ -16,10 +16,10 @@ export const Category = styled.div<CategoryProps>`
 `; 
 
 export const Name = styled.div`
-    font-size: 2.5em;
-    font-weight: 600;
+    font-size: 2em;
+    font-weight: 200;
     text-align: center;
-    padding: 0.8em;
+    padding: 0.7em;
     color:white;
 `;
 
@@ -31,8 +31,12 @@ export const Header = styled.div`
     text-align:center;
     background-image: url(${Image.default});
     background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-color: #28587B;
+    background-size: 105em 40em;
+    @media (max-width: 768px){
+        background-position: -15em 0em;
+        background-size: 105em 45em;
+    }
+    background-color: #25185e;
 `;
 
 export const TitleContainer = styled.div`
@@ -52,12 +56,11 @@ export const Text = styled.span`
     color: white;
 `;
 
-export const CategoryLabel =styled(Text)`
-    font-size: 5em;
+export const CategoryLabel =styled.span`
+    font-size: 5.5em;
+    font-weight: 100;
+    color: white;
     text-decoration: underline;
-    font-weight: 600;
-    color: black;
-    margin-left:0.5em;
 `;
 
 interface BodyProps{
@@ -65,18 +68,22 @@ interface BodyProps{
 }
 export const Body = styled.div<BodyProps>`
     padding-top: 1em;
+    padding-bottom:1em;
     top: 100%;
     display: hidden;
     display: ${props=>props.show && "flex"};
     flex-direction:column;
     align-items: center;
     top: ${props=>props.show && 70}%;
+    @media (max-width: 768px){
+        top: ${props=>props.show && 50}%;
+    }
     transition: 1s;
     z-index: 2;
     position:absolute;
     box-shadow: 0 -5px 20px 5px black;
     width: 100%;
-    background-color: white;
+    background-color: rgba(0,0,0, 0.80);
 `;
 
 export const CategoryWrap = styled.div`

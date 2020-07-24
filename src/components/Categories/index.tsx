@@ -4,9 +4,15 @@ import {useObserver} from "mobx-react";
 import * as S from "./styles";
 import {StyledLink} from "../styles";
 
-
 export const Categories = () => {
     const {store} = useStore();
+
+    useEffect(()=>{
+        document.body.style.overflowY = "scroll";
+        return (()=>(
+            document.body.style.overflowY= "auto"
+        ));
+    },[]);
 
     function getColor(){ 
         return "hsl(" + 360 * Math.random() + ',' +
@@ -15,7 +21,7 @@ export const Categories = () => {
     }
 
     return useObserver(()=>(
-        <>
+        <div>
             <S.Header>
                 <S.TitleContainer>
                     <S.Title>
@@ -28,25 +34,20 @@ export const Categories = () => {
                     </S.Description>
                 </S.TitleContainer>
             </S.Header>
-            <S.Container>
-                {
-                    store.categories.length === 0 && <p>Loading..</p>
-                }
-                <Fragment>
-                    {store.categories.map(
-                    (category)=>
-                        <S.Category 
-                            hoverColor={getColor()} 
-                            key={category.id}
-                        >
-                            <StyledLink to={"/quiz/"+category.id}>
-                                <S.Name>{category.name}</S.Name>
-                            </StyledLink>
-                        </S.Category>
-                        
-                    )}
-                </Fragment>
-            </S.Container>
-        </>
+            <S.Body show={store.categories.length>0}>
+                {store.categories.map(
+                (category)=>
+                    <S.Category 
+                        hoverColor={getColor()} 
+                        key={category.id}
+                    >
+                        <StyledLink to={"/quiz/"+category.id}>
+                            <S.Name>{category.name}</S.Name>
+                        </StyledLink>
+                    </S.Category>
+                    
+                )}
+            </S.Body>
+        </div>
     ))
 }

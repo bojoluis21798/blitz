@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import {Link} from "react-router-dom";
 
 const Image = require("../../assets/background.jpg");
@@ -56,7 +56,13 @@ export const Description = styled.span`
     color: white;
 `;
 
-export const Container = styled.div`
+interface BodyProps{
+    show: boolean;
+}
+export const Body = styled.div<BodyProps>`
+    display: ${props=>props.show?"block":"none"};
+    top: ${props=>props.show?80:100}%;
+    transition: 1s;
     z-index: 2;
     position:absolute;
     display:flex;
@@ -65,7 +71,6 @@ export const Container = styled.div`
     justify-content:center;
     box-shadow: 0 -5px 20px 5px black;
     width: 100%;
-    top: 80%;
     background-color: white;
 `;
 

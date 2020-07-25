@@ -17,6 +17,7 @@ export const Category = styled(Link)<CategoryProps>`
     border-radius: 10px;
     box-shadow: 2px 2px 5px black;
     margin: 1em;
+    padding-top: 2em;
     align-items: center;
     justify-content: center;
     display:flex;
@@ -66,6 +67,7 @@ export const Name = styled.div`
     text-align:center;
     width: 6em;
     height: 3em;
+    margin: 1em;
     display: flex;
     align-items: center;
     justify-content:center;

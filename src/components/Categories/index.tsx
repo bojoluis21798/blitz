@@ -42,6 +42,7 @@ export const Categories = () => {
                     {store.categories.map(
                     (category,index)=>
                     <S.Category 
+                        length={store.categories.length}
                         color={getColor(index)} 
                         key={category.id}
                         to={"/quiz/"+category.id}

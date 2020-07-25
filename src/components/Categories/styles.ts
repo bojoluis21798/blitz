@@ -1,18 +1,36 @@
 import styled, {keyframes} from "styled-components";
 import {Link} from "react-router-dom";
 
-export const Category = styled(Link)`
-    flex: 1,1,0;
+const CategoryAnim = keyframes`
+    from {
+        opacity: 0;
+    }
+    top {
+        opactiy: 1;
+    }
+`;
+
+interface CategoryProps {
+    length: number;
+}
+export const Category = styled(Link)<CategoryProps>`
     border-radius: 10px;
     box-shadow: 2px 2px 5px black;
     margin: 1em;
-    display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1em;
+    display:flex;
     flex-direction: column;
     text-decoration: none;
-    transition: 0.3s;
+    animation: 0.2s ${CategoryAnim} linear;
+    ${props=>{
+        let delayAnim = "";
+        for(let i = 2; i<=props.length; i++){
+            delayAnim = delayAnim + `&:nth-of-type(${i}n){animation-duration:${(i)*0.2}s;}`;
+        }
+        console.log(delayAnim);
+        return delayAnim;
+    }}
     &:hover{
         box-shadow: 2px 2px 10px black;
     }
@@ -20,6 +38,10 @@ export const Category = styled(Link)`
         box-shadow: 2px 2px 10px black;
     }
 `; 
+
+/*
+
+*/
 
 interface CategoryLogoProps{
     name: string
@@ -39,10 +61,10 @@ export const CategoryLogo = styled.img.attrs<CategoryLogoProps>(({name})=>{
 
 export const Name = styled.div`
     font-size: 2em;
-    font-weight: 400;
+    font-weight: 300;
     color:black;
     text-align:center;
-    width: 5em;
+    width: 6em;
     height: 3em;
     display: flex;
     align-items: center;

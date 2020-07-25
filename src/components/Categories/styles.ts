@@ -1,66 +1,91 @@
 import styled, {keyframes} from "styled-components";
 import {Link} from "react-router-dom";
 
-const Image = require("../../assets/background.jpg");
-
-interface CategoryProps {
-    color: string;
-}
-export const Category = styled.div<CategoryProps>`
+export const Category = styled(Link)`
     flex: 1,1,0;
     border-radius: 10px;
-    box-shadow: 1px 1px 5px black;
+    box-shadow: 2px 2px 5px black;
     margin: 1em;
-    background-color: ${props=>props.color};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+    flex-direction: column;
+    text-decoration: none;
     transition: 0.3s;
+    &:hover{
+        box-shadow: 2px 2px 10px black;
+    }
+    &:click{
+        box-shadow: 2px 2px 10px black;
+    }
 `; 
+
+interface CategoryLogoProps{
+    name: string
+}
+export const CategoryLogo = styled.img.attrs<CategoryLogoProps>(({name})=>{
+    try{
+        return {src: require(`../../assets/${name}.png`).default};
+    }catch(e){
+        return {src: require("../../assets/logo.png").default};
+    }
+}
+)<CategoryLogoProps>`
+    height: 5em;
+    width: 5em;
+    padding: 1em;
+`;
 
 export const Name = styled.div`
     font-size: 2em;
-    font-weight: 200;
-    text-align: center;
-    padding: 0.7em;
-    color:white;
+    font-weight: 400;
+    color:black;
+    text-align:center;
+    width: 5em;
+    height: 3em;
+    display: flex;
+    align-items: center;
+    justify-content:center;
 `;
 
 export const Header = styled.div`
-    position:fixed;
-    z-index: 1;
-    height: 100%;
-    width: 100%;
-    text-align:center;
-    background-image: url(${Image.default});
-    background-repeat: no-repeat;
-    background-size: 105em 40em;
-    @media (max-width: 768px){
-        background-position: -15em 0em;
-        background-size: 105em 45em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#25185e; 
+    padding: 1em;
+    @media(max-width:768px){
+        flex-direction: column;
     }
-    background-color: #25185e;
 `;
 
 export const TitleContainer = styled.div`
-    position:relative;
-    top: 20%;
+    margin: 2em;
+    text-align:center;
+`;
+
+export const Container = styled.div`
+    
 `;
 
 export const Title = styled.span`
-    font-size: 10em;
+    font-size: 5em;
     font-weight: 900;
     color:white;
 `;
 
 export const Text = styled.span`
     font-size: 2em;
-    font-weight: 100;
+    font-weight: 300;
     color: white;
 `;
 
 export const CategoryLabel =styled.span`
-    font-size: 5.5em;
-    font-weight: 100;
-    color: white;
-    text-decoration: underline;
+    font-size: 3em;
+    font-weight: 700;
+    color: black;
+    margin: 0.3em;
 `;
 
 interface BodyProps{
@@ -69,21 +94,18 @@ interface BodyProps{
 export const Body = styled.div<BodyProps>`
     padding-top: 1em;
     padding-bottom:1em;
-    top: 100%;
-    display: hidden;
-    display: ${props=>props.show && "flex"};
+    display: flex;
     flex-direction:column;
-    align-items: center;
-    top: ${props=>props.show && 70}%;
-    @media (max-width: 768px){
-        top: ${props=>props.show && 50}%;
-    }
-    transition: 1s;
-    z-index: 2;
-    position:absolute;
-    box-shadow: 0 -5px 20px 5px black;
-    width: 100%;
-    background-color: rgba(0,0,0, 0.80);
+    box-shadow: 0 -20px 20px -20px black;
+`;
+
+const logoPic = require("../../assets/logo.png");
+
+export const Logo = styled.img.attrs(()=>({
+    src: require("../../assets/logo.png").default,
+}))`
+    height: 10em;
+    width: 10em;
 `;
 
 export const CategoryWrap = styled.div`

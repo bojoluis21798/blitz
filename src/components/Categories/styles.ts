@@ -118,19 +118,11 @@ const LoadingAnim = keyframes`
 export const Loading = styled.div`
     border-radius: 50%;
     border: 1px solid black;
-    width: 3em;
-    height: 3em;
+    width: 10em;
+    height: 10em;
     border-bottom: 1px solid white;
-    margin: 1em;
+    margin-top: 5em;
     animation: 1s ${LoadingAnim} infinite linear;
-`;
-
-export const LoadingContainer = styled.div`
-    display:flex;
-    flex-direction: column;
-    margin: 1em;
-    align-items:center;
-    justify-content:center;
 `;
 
 export const CategoryLabel =styled.span`

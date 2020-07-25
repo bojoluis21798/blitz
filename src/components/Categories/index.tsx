@@ -31,13 +31,7 @@ export const Categories = () => {
             <S.Body>
                 <S.CategoryWrap>
                     {!show && 
-                        <S.LoadingContainer>
-                            <S.Loading/>
-                            <S.Text 
-                                color="black"
-                                size="1"
-                            >Fetching Categories...</S.Text>
-                        </S.LoadingContainer>
+                        <S.Loading/>
                     }
                     {store.categories.map(
                     (category,index)=>

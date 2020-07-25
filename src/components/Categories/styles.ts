@@ -13,11 +13,12 @@ const CategoryAnim = keyframes`
 interface CategoryProps {
     length: number;
 }
-export const Category = styled(Link)<CategoryProps>`
+export const Category = styled.div<CategoryProps>`
     border-radius: 10px;
     box-shadow: 2px 2px 5px black;
     margin: 1em;
     padding-top: 2em;
+    background-color:white;
     align-items: center;
     justify-content: center;
     display:flex;
@@ -34,6 +35,7 @@ export const Category = styled(Link)<CategoryProps>`
     }}
     &:hover{
         box-shadow: 2px 2px 10px black;
+        cursor:pointer;
     }
     &:click{
         box-shadow: 2px 2px 10px black;

@@ -30,7 +30,6 @@ export const Category = styled.div<CategoryProps>`
         for(let i = 2; i<=props.length; i++){
             delayAnim = delayAnim + `&:nth-of-type(${i}n){animation-duration:${(i)*0.2}s;}`;
         }
-        console.log(delayAnim);
         return delayAnim;
     }}
     &:hover{

@@ -3,11 +3,19 @@ import {useStore} from "../../store";
 import {useObserver} from "mobx-react";
 import * as S from "./styles";
 import {StyledLink} from "../styles";
+import {withRouter} from "react-router";
 
-export const Categories = () => {
+export const Categories = withRouter(({history, location}) => {
     const {store} = useStore();
 
     const show = store.categories.length > 0;
+
+    const handleCategoryClick = (id:number)=> {
+        history.push({
+            pathname: "/quiz/"+id,
+            state: {previousScreen: 0}
+        });
+    }
 
     return useObserver(()=>(
         <S.Container>
@@ -33,7 +41,7 @@ export const Categories = () => {
                     <S.Category 
                         length={store.categories.length} 
                         key={category.id}
-                        to={"/quiz/"+category.id}
+                        onClick={(e)=>handleCategoryClick(category.id)}
                     >
                         <S.CategoryLogo name={category.name}/>
                         <S.Name>{category.name}</S.Name>
@@ -43,4 +51,4 @@ export const Categories = () => {
             </S.Body>
         </S.Container>
     ))
-}
+});

@@ -5,7 +5,7 @@ import * as S from "./styles";
 import {StyledLink} from "../styles";
 import {withRouter} from "react-router";
 
-export const Categories = withRouter(({history, location}) => {
+export const Categories = withRouter(({history}) => {
     const {store} = useStore();
 
     const show = store.categories.length > 0;

@@ -40,10 +40,6 @@ export const Category = styled(Link)<CategoryProps>`
     }
 `; 
 
-/*
-
-*/
-
 interface CategoryLogoProps{
     name: string
 }

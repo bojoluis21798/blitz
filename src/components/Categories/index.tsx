@@ -7,11 +7,6 @@ import {StyledLink} from "../styles";
 export const Categories = () => {
     const {store} = useStore();
 
-    function getColor(index:number){ 
-        const step = 360/store.categories.length;
-        return "hsl(" + (index*step) + ',' + '90%, 25%)'
-    }
-
     const show = store.categories.length > 0;
 
     return useObserver(()=>(
@@ -36,8 +31,7 @@ export const Categories = () => {
                     {store.categories.map(
                     (category,index)=>
                     <S.Category 
-                        length={store.categories.length}
-                        color={getColor(index)} 
+                        length={store.categories.length} 
                         key={category.id}
                         to={"/quiz/"+category.id}
                     >

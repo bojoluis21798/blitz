@@ -207,7 +207,7 @@ export const Quiz = () => {
         }
     },[]);
 
-    function handleChoiceClick(choice:string, difficulty:EDifficulty){
+    const handleChoiceClick = (choice:string, difficulty:EDifficulty)=>{
         quizStore.pauseTimer();
         
         if(quizStore.evaluateAnswer(choice)===AnswerEval.CORRECT){
@@ -254,6 +254,7 @@ export const Quiz = () => {
                     <Styled.Difficulty>Difficulty: {quizStore.difficulty}</Styled.Difficulty>
                     <Styled.Timer>{quizStore.timeRemaining}</Styled.Timer>
                     <Styled.Score>{quizStore.score}</Styled.Score>
+                    <button onClick={handleBackClick}></button>
                 </Styled.Container>
             }
 

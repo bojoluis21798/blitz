@@ -20,6 +20,10 @@ export class Store {
                 if(item.name.indexOf(":") !== -1){
                     item.name = item.name.substring(item.name.indexOf(":")+2, item.name.length);
                 }
+                if(item.name === "Japanese Anime & Manga"){   
+                    item.name = "Anime & Manga";
+                }
+                
                 return item;
             });
         })

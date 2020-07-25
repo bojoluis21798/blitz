@@ -1,5 +1,6 @@
 import React, {useState, useEffect, Fragment} from "react";
 import {useParams, Redirect} from "react-router-dom";
+import {withRouter} from "react-router";
 import * as Styled from "./styles";
 import {useLocalStore, useObserver} from "mobx-react";
 import {when} from "mobx";
@@ -72,7 +73,7 @@ let timerID:NodeJS.Timeout = null;
 let waitID:NodeJS.Timeout = null;
 //let completedWaitID:NodeJS.Timeout = null;
 
-export const Quiz = () => {
+export const Quiz = withRouter(({history}) => {
     const {id} = useParams();
     const {store} = useStore();      
 
@@ -207,6 +208,13 @@ export const Quiz = () => {
         }
     },[]);
 
+    const handleBackClick = () => {
+        history.push({
+            pathname: "/",
+            state: {previousScreen: 1}
+        })
+    }
+
     const handleChoiceClick = (choice:string, difficulty:EDifficulty)=>{
         quizStore.pauseTimer();
         
@@ -254,7 +262,7 @@ export const Quiz = () => {
                     <Styled.Difficulty>Difficulty: {quizStore.difficulty}</Styled.Difficulty>
                     <Styled.Timer>{quizStore.timeRemaining}</Styled.Timer>
                     <Styled.Score>{quizStore.score}</Styled.Score>
-                    <button onClick={handleBackClick}></button>
+                    <button onClick={handleBackClick}>Back</button>
                 </Styled.Container>
             }
 
@@ -275,4 +283,4 @@ export const Quiz = () => {
             */}
         </>
     ));
-}
+});

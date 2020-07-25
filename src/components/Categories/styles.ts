@@ -75,10 +75,38 @@ export const Title = styled.span`
     color:white;
 `;
 
-export const Text = styled.span`
-    font-size: 2em;
+interface TextProps{
+    color?:string;
+    size?:string;
+}
+export const Text = styled.span<TextProps>`
     font-weight: 300;
-    color: white;
+    color: ${props=>props.color || "white"};
+    font-size: ${props=>props.size || "2"}em;
+`;
+
+const LoadingAnim = keyframes`
+    to {
+        transform: rotate(360deg);
+    }
+`;
+
+export const Loading = styled.div`
+    border-radius: 50%;
+    border: 1px solid black;
+    width: 3em;
+    height: 3em;
+    border-bottom: 1px solid white;
+    margin: 1em;
+    animation: 1s ${LoadingAnim} infinite linear;
+`;
+
+export const LoadingContainer = styled.div`
+    display:flex;
+    flex-direction: column;
+    margin: 1em;
+    align-items:center;
+    justify-content:center;
 `;
 
 export const CategoryLabel =styled.span`
@@ -88,18 +116,14 @@ export const CategoryLabel =styled.span`
     margin: 0.3em;
 `;
 
-interface BodyProps{
-    show: boolean;
-}
-export const Body = styled.div<BodyProps>`
+
+export const Body = styled.div`
     padding-top: 1em;
     padding-bottom:1em;
     display: flex;
     flex-direction:column;
     box-shadow: 0 -20px 20px -20px black;
 `;
-
-const logoPic = require("../../assets/logo.png");
 
 export const Logo = styled.img.attrs(()=>({
     src: require("../../assets/logo.png").default,

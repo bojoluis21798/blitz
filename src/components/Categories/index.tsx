@@ -28,9 +28,17 @@ export const Categories = () => {
                 </S.TitleContainer>
                 <S.Logo></S.Logo>
             </S.Header>
-            <S.Body show={show}>
+            <S.Body>
                 <S.CategoryWrap>
-                    {!show && <p>Loading</p>}
+                    {!show && 
+                        <S.LoadingContainer>
+                            <S.Loading/>
+                            <S.Text 
+                                color="black"
+                                size="1"
+                            >Fetching Categories...</S.Text>
+                        </S.LoadingContainer>
+                    }
                     {store.categories.map(
                     (category,index)=>
                     <S.Category 

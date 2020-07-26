@@ -1,7 +1,16 @@
-import styled from "styled-components";
-import {Link} from "react-router-dom";
+import styled, {keyframes} from "styled-components";
 
-export const StyledLink = styled(Link)`
-    text-decoration: none;
-    color:black;
+const LoadingAnim = keyframes`
+    to {
+        transform: rotate(360deg);
+    }
+`;
+
+export const Loading = styled.div`
+    border-radius: 50%;
+    border: 1px solid black;
+    width: 10em;
+    height: 10em;
+    border-bottom: 1px solid white;
+    animation: 1s ${LoadingAnim} infinite linear;
 `;

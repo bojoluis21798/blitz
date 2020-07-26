@@ -2,7 +2,7 @@ import React, {Fragment, useEffect, useState} from "react";
 import {useStore} from "../../store";
 import {useObserver} from "mobx-react";
 import * as S from "./styles";
-import {StyledLink} from "../styles";
+import {Loading} from "../styles";
 import {withRouter} from "react-router";
 
 export const Categories = withRouter(({history}) => {
@@ -34,7 +34,7 @@ export const Categories = withRouter(({history}) => {
             <S.Body>
                 <S.CategoryWrap>
                     {!show && 
-                        <S.Loading/>
+                        <Loading/>
                     }
                     {store.categories.map(
                     (category,index)=>

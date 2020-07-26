@@ -107,22 +107,6 @@ export const Text = styled.span<TextProps>`
     font-size: ${props=>props.size || "2"}em;
 `;
 
-const LoadingAnim = keyframes`
-    to {
-        transform: rotate(360deg);
-    }
-`;
-
-export const Loading = styled.div`
-    border-radius: 50%;
-    border: 1px solid black;
-    width: 10em;
-    height: 10em;
-    border-bottom: 1px solid white;
-    margin-top: 5em;
-    animation: 1s ${LoadingAnim} infinite linear;
-`;
-
 export const CategoryLabel =styled.span`
     font-size: 3em;
     font-weight: 700;

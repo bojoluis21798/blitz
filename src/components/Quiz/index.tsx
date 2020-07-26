@@ -2,6 +2,7 @@ import React, {useState, useEffect, Fragment} from "react";
 import {useParams, Redirect} from "react-router-dom";
 import {withRouter} from "react-router";
 import * as Styled from "./styles";
+import {Loading} from "../styles";
 import {useLocalStore, useObserver} from "mobx-react";
 import {when} from "mobx";
 import {useStore} from "../../store";

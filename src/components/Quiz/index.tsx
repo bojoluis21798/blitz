@@ -7,6 +7,7 @@ import {useLocalStore, useObserver} from "mobx-react";
 import {when} from "mobx";
 import {useStore} from "../../store";
 import parse from "html-react-parser";
+import {Textfit} from "react-textfit";
 
 interface IQuestion{
     category:string;
@@ -244,22 +245,30 @@ export const Quiz = withRouter(({history}) => {
     }
 
     return useObserver(()=>(
-        <Styled.Container>    
-            {!quizStore.hasLoaded && <p>Loading...</p>}
+        <Styled.Container loaded={quizStore.hasLoaded}>    
+            {!quizStore.hasLoaded && <Loading/>}
 
             {
                 (quizStore.hasLoaded && !(quizStore.hasFailed || quizStore.hasCompleted)) &&
                 <>
-                    <Styled.Question>Question: {parse(quizStore.currentQuestion)}</Styled.Question>
-                        {quizStore.currentChoices.map((choice,index)=>{
-                            <Styled.Choices key={index} 
+                    <Styled.Question>
+                        <Textfit style={{height:'100%', width:"100%", display:"flex", alignItems:"center"}}>
+                            {parse(quizStore.currentQuestion)}
+                        </Textfit>
+                    </Styled.Question>
+                    <Styled.ChoicesContainer>   
+                        {quizStore.currentChoices.map((choice,index)=>
+                            <Styled.Choices
+                                    key={index}
                                     eval={quizStore.evaluateAnswer(choice)}
                                     reveal={reveal}
                                     onClick={(e)=>handleChoiceClick(choice, quizStore.difficulty)}
                                     disabled={reveal}
-                            >{parse(choice)}</Styled.Choices>
-                        })}
-                    
+                            >  
+                                {parse(choice)}
+                            </Styled.Choices>
+                        )}
+                    </Styled.ChoicesContainer>
                     <Styled.Difficulty>Difficulty: {quizStore.difficulty}</Styled.Difficulty>
                     <Styled.Timer>{quizStore.timeRemaining}</Styled.Timer>
                     <Styled.Score>{quizStore.score}</Styled.Score>

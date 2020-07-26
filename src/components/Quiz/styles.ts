@@ -6,6 +6,9 @@ const border = `border: 1px solid black;`;
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
+    background-color:white;
+    width:100%;
+    height:100%;
 `;
 
 export const Question = styled.div`

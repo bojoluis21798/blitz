@@ -1,17 +1,9 @@
 import * as React from "react";
 import {Categories, Quiz} from './components';
-import styled from "styled-components";
-import {BrowserRouter, Switch, Route, RouteComponentProps} from "react-router-dom";
-import {withRouter, StaticContext} from "react-router";
+import {BrowserRouter, Switch, Route} from "react-router-dom";
+import {withRouter} from "react-router";
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 import "./App.css";
-
-const StyleContainer = styled.div`
-    font-family: 'Roboto', sans-serif;
-    @media (max-width: 768px){
-        font-size: 10px;
-    }
-`;
 
 interface Location {
     previousScreen?: number;
@@ -38,9 +30,11 @@ const AnimatedSwitch = withRouter((router) => {
             }
         >
             <CSSTransition
-                key={router.location.key}
+                key={router.location.pathname}
                 classNames={animationClassName}
-                timeout={1000}
+                timeout={500}
+                onEnter={()=>document.body.style.overflowX = "hidden"}
+                onEntered={()=>document.body.style.overflowX = "auto"}
             >
                 <Switch location={router.location}>
                     <Route exact path="/">
@@ -61,10 +55,10 @@ const AnimatedSwitch = withRouter((router) => {
 export const App = () => {
 
     return(
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
-            <StyleContainer>
-                <AnimatedSwitch/>
-            </StyleContainer>
-        </BrowserRouter>
+        <div className="App">
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
+                    <AnimatedSwitch/>
+            </BrowserRouter>
+        </div>
     );
 }

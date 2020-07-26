@@ -243,27 +243,27 @@ export const Quiz = withRouter(({history}) => {
     }
 
     return useObserver(()=>(
-        <>    
+        <Styled.Container>    
             {!quizStore.hasLoaded && <p>Loading...</p>}
 
             {
                 (quizStore.hasLoaded && !(quizStore.hasFailed || quizStore.hasCompleted)) &&
-                <Styled.Container>
+                <>
                     <Styled.Question>Question: {parse(quizStore.currentQuestion)}</Styled.Question>
-                    {quizStore.currentChoices.map((choice,index)=>
+                        {quizStore.currentChoices.map((choice,index)=>{
                             <Styled.Choices key={index} 
                                     eval={quizStore.evaluateAnswer(choice)}
                                     reveal={reveal}
                                     onClick={(e)=>handleChoiceClick(choice, quizStore.difficulty)}
                                     disabled={reveal}
                             >{parse(choice)}</Styled.Choices>
-                        )
-                    }
+                        })}
+                    
                     <Styled.Difficulty>Difficulty: {quizStore.difficulty}</Styled.Difficulty>
                     <Styled.Timer>{quizStore.timeRemaining}</Styled.Timer>
                     <Styled.Score>{quizStore.score}</Styled.Score>
                     <button onClick={handleBackClick}>Back</button>
-                </Styled.Container>
+                </>
             }
 
             {
@@ -275,12 +275,7 @@ export const Quiz = withRouter(({history}) => {
                     <h1>Hard: {quizStore.correctCount.hard} x {hardPoints}</h1>
                     {quizStore.hasCompleted ? <h1>Completed</h1>:<h1>Failed</h1>}
                 </>
-            }     
-
-            {/*
-                shouldRedirect &&
-                <Redirect to="/"/>
-            */}
-        </>
+            }  
+        </Styled.Container>
     ));
 });

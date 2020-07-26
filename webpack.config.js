@@ -23,8 +23,8 @@ module.exports = {
         loader: "source-map-loader",
       },
       {
-        test: /\.(css)$/,
-        loader: "css-loader",
+        test: /\.css$/,
+        use: ["style-loader","css-loader"],
       },
       {
         test: /\.(jpg|png)$/,

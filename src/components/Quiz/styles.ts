@@ -54,6 +54,18 @@ export const ChoicesContainer = styled.div`
     }
 `;
 
+export const Back = styled.div`
+    background-image: url('${require('../../assets/back.png').default}');
+    background-size: 100% 100%;
+    @media(max-width:1024px){
+        height: 10vw;
+        width: 10vw;
+    }
+    height: 4vw;
+    width: 4vw;
+    position:absolute;
+    left:1%;
+`;
 
 export const Choices = styled.button<ChoicesProps>`
     ${border}

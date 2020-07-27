@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Fragment} from "react";
+import React, {useState, useEffect, Fragment, useRef} from "react";
 import {useParams, Redirect} from "react-router-dom";
 import {withRouter} from "react-router";
 import * as Styled from "./styles";
@@ -28,6 +28,7 @@ interface IQuizStore {
     questions: IQuestion[];
     index: number;
     currentQuestion:string;
+    category: string;
     timeRemaining: number;
     difficulty:EDifficulty;
     hasLoaded:boolean;
@@ -76,8 +77,13 @@ let waitID:NodeJS.Timeout = null;
 //let completedWaitID:NodeJS.Timeout = null;
 
 export const Quiz = withRouter(({history}) => {
-    const {id} = useParams();
+    //const {id} = useParams();
+    const id = 9;
     const {store} = useStore();      
+    
+    const buttonRef:React.RefObject<HTMLButtonElement>[] = [
+        useRef(null), useRef(null), useRef(null), useRef(null)
+    ];
 
     const quizStore = useLocalStore<IQuizStore>(()=>({
         questions: [],
@@ -110,6 +116,9 @@ export const Quiz = withRouter(({history}) => {
                 case "hard":
                     return EDifficulty.HARD;
             }
+        },
+        get category(){
+            return this.questions[this.index].category;
         },
         addScore(num){
             this.score += num;
@@ -150,10 +159,10 @@ export const Quiz = withRouter(({history}) => {
     //const [shouldRedirect, setShouldRedirect] = useState<boolean>(false);
 
     useEffect(()=>{
-        when(
+        /*when(
             ()=>quizStore.hasLoaded,
             ()=>quizStore.startTimer()
-        );
+        );*/
 
         when(
             ()=>quizStore.hasCompleted || quizStore.hasFailed,
@@ -217,10 +226,11 @@ export const Quiz = withRouter(({history}) => {
         })
     }
 
-    const handleChoiceClick = (choice:string, difficulty:EDifficulty)=>{
+    const handleChoiceClick = (ref:React.RefObject<HTMLButtonElement>, choice:string, difficulty:EDifficulty)=>{
         quizStore.pauseTimer();
         
         if(quizStore.evaluateAnswer(choice)===AnswerEval.CORRECT){
+            ref.current.style.backgroundColor = "green";
             switch(difficulty){
                 case EDifficulty.EASY:
                     quizStore.correctCount.easy++;
@@ -235,11 +245,17 @@ export const Quiz = withRouter(({history}) => {
                     quizStore.addScore(hardPoints);
                     break;
             }
+        }else{
+            ref.current.style.backgroundColor = "red";
+            ref.current.style.color = "white";
         }
+
         setReveal(true);
         waitID = setTimeout(()=>{
             quizStore.next();
             quizStore.resetTimer();
+            ref.current.style.backgroundColor = "";
+            ref.current.style.color = "";
             setReveal(false);
         },waitTime)
     }
@@ -251,6 +267,12 @@ export const Quiz = withRouter(({history}) => {
             {
                 (quizStore.hasLoaded && !(quizStore.hasFailed || quizStore.hasCompleted)) &&
                 <>
+                    <Styled.Header>
+                        <Styled.Back onClick={handleBackClick}></Styled.Back>
+                        <Styled.TopInfo>
+                            <Styled.Category>{quizStore.category}</Styled.Category>
+                        </Styled.TopInfo>
+                    </Styled.Header>
                     <Styled.Question>
                         <Textfit style={{height:'100%', width:"100%", display:"flex", alignItems:"center"}}>
                             {parse(quizStore.currentQuestion)}
@@ -262,17 +284,15 @@ export const Quiz = withRouter(({history}) => {
                                     key={index}
                                     eval={quizStore.evaluateAnswer(choice)}
                                     reveal={reveal}
-                                    onClick={(e)=>handleChoiceClick(choice, quizStore.difficulty)}
+                                    ref={buttonRef[index]}
+                                    onClick={(e)=>handleChoiceClick(buttonRef[index], choice, quizStore.difficulty)}
                                     disabled={reveal}
                             >  
                                 {parse(choice)}
                             </Styled.Choices>
                         )}
                     </Styled.ChoicesContainer>
-                    <Styled.Difficulty>Difficulty: {quizStore.difficulty}</Styled.Difficulty>
                     <Styled.Timer>{quizStore.timeRemaining}</Styled.Timer>
-                    <Styled.Score>{quizStore.score}</Styled.Score>
-                    <button onClick={handleBackClick}>Back</button>
                 </>
             }
 

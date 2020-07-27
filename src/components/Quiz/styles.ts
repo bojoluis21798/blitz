@@ -10,9 +10,9 @@ export const Container = styled.div<ContainerProps>`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background-color:white;
-    ${props=>props.loaded?"":"height:100%;"}
+    justify-content: ${props=>props.loaded ? 'space-between': 'center'};
+    background-color:#000121;
+    height:100%;
 `;
 
 export const Question = styled.div`
@@ -21,13 +21,18 @@ export const Question = styled.div`
     justify-content:center;
     align-items:center;
     font-weight: 900;
-    height: 9em;
+    height: 8em;
     width: 90%;
-    margin:0.5em;
+    margin:3vw;
+    color:white;
 `;
 
 export const Difficulty = styled.div`
-    ${border}
+    font-size: 3vw;
+    @media(max-width:1024px){
+        font-size: 5vw;
+    }
+    font-weight: 100;
 `;
 
 export const Timer = styled.div`
@@ -52,6 +57,27 @@ export const ChoicesContainer = styled.div`
         grid-gap: 1vh;
         grid-template-columns:1fr;
     }
+    padding-bottom: 1em;
+`;
+
+export const Header = styled.div`
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width: 90%;
+    @media(max-width:1024px){
+        padding-top: 5vw;
+    }
+    padding-top: 1vw;
+`;
+
+export const Category = styled.span`
+    @media(max-width:1024px){
+        font-size: 7vw;
+    }
+    font-size: 4vw;
+    font-weight: 100;
+    color:white;
 `;
 
 export const Back = styled.div`
@@ -67,20 +93,32 @@ export const Back = styled.div`
     left:1%;
 `;
 
+export const TopInfo = styled.div`
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    color:white;
+    justify-content:center;
+`;
+
 export const Choices = styled.button<ChoicesProps>`
-    ${border}
+    border-radius: 1em;
+    border:none;
+    outline:none;
     @media(max-width:1024px){
         width: 85vw;
         height: 25vw;
         font-size: 6vw;
     }
+    box-shadow: 2px 2px 10px black;
     display: flex;
-    font-size: 3vw;
     justify-content:center;
     align-items:center;
-    height: 10vw;
-    width: 40vw;
+    height: 7.5vw;
+    width: 44vw;
+    font-size: 4vw;
     text-align:center;
     font-weight: 100;
+    color: ${props=>props.eval === AnswerEval.CORRECT && props.reveal ? "white": "black"};
     background-color: ${props=>props.eval === AnswerEval.CORRECT && props.reveal ? `green`:`white`};
 `;

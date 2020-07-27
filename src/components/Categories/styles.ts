@@ -74,7 +74,7 @@ export const Header = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color:#25185e; 
+    background-color:#0d0954; 
     padding: 1em;
     @media(max-width:768px){
         flex-direction: column;

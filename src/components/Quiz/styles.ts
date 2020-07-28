@@ -14,6 +14,7 @@ export const Container = styled.div<ContainerProps>`
     justify-content: ${props=>props.justify};
     background-color: ${props=>props.color || 'white'};
     height:100%;
+    width: 100%;
     overflow-x:hidden;
 `;
 
@@ -87,9 +88,12 @@ export const Question = styled.div`
     justify-content:center;
     align-items:center;
     font-weight: 900;
-    height: 8em;
+    margin: 1vw;
+    @media(max-width:1024px){
+        height: 40vw;
+    }
+    height: 10vw;
     width: 90%;
-    margin:3vw;
     color:white;
 `;
 
@@ -137,7 +141,6 @@ export const ChoicesContainer = styled.div`
     grid-gap: 3vw;
     grid-template-columns: repeat(2,1fr);
     @media(max-width:1024px){
-        grid-gap: 1vh;
         grid-template-columns:1fr;
     }
 `;
@@ -204,7 +207,7 @@ export const Choices = styled.button<ChoicesProps>`
     outline:none;
     @media(max-width:1024px){
         width: 85vw;
-        height: 25vw;
+        height: 15vw;
         font-size: 5vw;
     }
     box-shadow: 2px 2px 10px black;

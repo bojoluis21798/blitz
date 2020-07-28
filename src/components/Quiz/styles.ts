@@ -188,6 +188,7 @@ export const Back = styled.div`
 
 export const BackImage = styled.img.attrs(()=>({
     src: require("../../../assets/back.png").default,
+    alt: "Back",
 }))`
     width: 100%;
     height: 100%;

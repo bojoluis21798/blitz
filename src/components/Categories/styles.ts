@@ -46,9 +46,15 @@ interface CategoryLogoProps{
 }
 export const CategoryLogo = styled.img.attrs<CategoryLogoProps>(({name})=>{
     try{
-        return {src: require(`../../../assets/${name}.png`).default};
+        return {
+            src: require(`../../../assets/${name}.png`).default,
+            alt: name
+        };
     }catch(e){
-        return {src: require("../../../assets/logo.png").default};
+        return {
+            src: require("../../../assets/logo.png").default,
+            alt: name
+        };
     }
 }
 )<CategoryLogoProps>`

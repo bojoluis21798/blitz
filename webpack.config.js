@@ -1,11 +1,13 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { TsConfigPathsPlugin } = require("awesome-typescript-loader");
 module.exports = {
   entry: "./src/index.tsx",
   target: "web",
   mode: "development",
   output: {
-    path: path.resolve(__dirname, "build"),
+    path: path.build,
+    publicPath: path.build,
     filename: "bundle.js",
   },
   resolve: {
@@ -28,7 +30,7 @@ module.exports = {
       },
       {
         test: /\.(jpg|png)$/,
-        loader: "file-loader",
+        loader: "file-loader?name=/assets/[name].[ext]",
       },
     ],
   },

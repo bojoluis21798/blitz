@@ -4,10 +4,9 @@ const { TsConfigPathsPlugin } = require("awesome-typescript-loader");
 module.exports = {
   entry: "./src/index.tsx",
   target: "web",
-  mode: "development",
+  mode: "production",
   output: {
-    path: path.build,
-    publicPath: path.build,
+    path: path.join(__dirname, './build'),
     filename: "bundle.js",
   },
   resolve: {
@@ -31,6 +30,9 @@ module.exports = {
       {
         test: /\.(jpg|png)$/,
         loader: "file-loader?name=/assets/[name].[ext]",
+        options: {
+          publicPath: '/',
+        }
       },
     ],
   },

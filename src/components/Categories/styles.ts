@@ -46,9 +46,9 @@ interface CategoryLogoProps{
 }
 export const CategoryLogo = styled.img.attrs<CategoryLogoProps>(({name})=>{
     try{
-        return {src: require(`../../assets/${name}.png`).default};
+        return {src: require(`../../../assets/${name}.png`).default};
     }catch(e){
-        return {src: require("../../assets/logo.png").default};
+        return {src: require("../../../assets/logo.png").default};
     }
 }
 )<CategoryLogoProps>`
@@ -121,10 +121,11 @@ export const Body = styled.div`
     display: flex;
     flex-direction:column;
     box-shadow: 0 -20px 20px -20px black;
+    background-color: white;
 `;
 
 export const Logo = styled.img.attrs(()=>({
-    src: require("../../assets/logo.png").default,
+    src: require("../../../assets/logo.png").default,
 }))`
     height: 10em;
     width: 10em;

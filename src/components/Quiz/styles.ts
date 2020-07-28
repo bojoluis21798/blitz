@@ -93,6 +93,13 @@ export const Back = styled.div`
     left:1%;
 `;
 
+export const BackImage = styled.img.attrs(()=>({
+    src: require("../../../assets/back.png").default,
+}))`
+    width: 100%;
+    height: 100%;
+`;
+
 export const TopInfo = styled.div`
     display:flex;
     flex-direction:column;

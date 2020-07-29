@@ -8,6 +8,11 @@
 
 .slide-forward-enter {
     transform: translateX(100%);
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    position: fixed;
     transition: transform 500ms ease-out;
     box-shadow: -1px 0px 20px 2px black;
 }

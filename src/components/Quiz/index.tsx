@@ -57,6 +57,7 @@ const timeRemaining = 15;
 //Timeout IDs
 let timerID:NodeJS.Timeout = null;
 let waitID:NodeJS.Timeout = null;
+let transID:NodeJS.Timeout = null;
 //let completedWaitID:NodeJS.Timeout = null;
 
 export const Quiz = withRouter(({history}) => {
@@ -161,10 +162,17 @@ export const Quiz = withRouter(({history}) => {
     },[]);
 
     useEffect(()=>{
+        transID = setTimeout(()=>{
+            window.scrollTo(0, 0);
+            clearTimeout(transID);
+        },500);
+    },[])
+
+    useEffect(()=>{
         return ()=>{
             clearTimeout(waitID);
             clearInterval(timerID);
-            //clearTimeout(completedWaitID);
+            clearTimeout(transID);
         }
     },[]);
 

@@ -45,7 +45,7 @@ let transID:NodeJS.Timeout = null;
 //let completedWaitID:NodeJS.Timeout = null;
 
 export const Quiz = withRouter(({history}) => {
-    const {id} = useParams();
+    const {id, name} = useParams();
     const {store} = useStore(); 
 
     const quizStore = useLocalStore(()=>({
@@ -154,7 +154,6 @@ export const Quiz = withRouter(({history}) => {
 
     useEffect(()=>{
         return ()=>{
-            store.activeCategory = null;
             clearTimeout(waitID);
             clearInterval(timerID);
             clearTimeout(transID);
@@ -209,7 +208,7 @@ export const Quiz = withRouter(({history}) => {
                                 <Styled.BackImage/>
                             </Styled.Back>
                             <Styled.TopInfo>
-                                <Styled.Category>{store.activeCategory.name}</Styled.Category>
+                                <Styled.Category>{name}</Styled.Category>
                             </Styled.TopInfo>
                         </Styled.Header>
                         <Styled.Question>

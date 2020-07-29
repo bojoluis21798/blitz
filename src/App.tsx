@@ -9,11 +9,15 @@ interface Location {
     previousScreen?: number;
 }
 const AnimatedSwitch = withRouter((router) => {
-    const routes = [/(\/)/g, /(\/quiz\/([1-9])*)/g];
+    const routes = ["", "quiz"];
 
     let currentScreen:number;
     routes.forEach((route,index)=>{
-        if(route.test(router.location.pathname)){
+        let pathname = router.location.pathname.slice(1);
+        if(pathname !== "") {
+            pathname = pathname.slice(0, pathname.indexOf("/"));
+        }
+        if(route === pathname){
             currentScreen = index;
         }
     });
@@ -39,7 +43,7 @@ const AnimatedSwitch = withRouter((router) => {
                     <Route exact path="/">
                         <Categories/>
                     </Route>
-                    <Route path="/quiz/:id">
+                    <Route path="/quiz/:id/:name">
                         <Quiz/>
                     </Route>
                     <Route path="*">

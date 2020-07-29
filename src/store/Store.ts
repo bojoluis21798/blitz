@@ -1,15 +1,20 @@
 import {decorate, observable, computed} from "mobx";
 
+interface Category{
+    [key:string]:string|number;
+    id: number;
+    name: string;
+}
+
 export class Store {
-    categories:Trivia.Category[] = [];
-    activeCategory: Trivia.Category;    
+    categories:Category[] = [];   
     hasError:boolean = false;
 
     constructor(){
         fetch("https://opentdb.com/api_category.php")
         .then(response=>response.json())
         .then((data)=>{
-            let categories:Trivia.Category[] = data.trivia_categories;
+            let categories:Category[] = data.trivia_categories;
 
             this.categories = categories.map((item)=>{
                 if(item.name.indexOf(":") !== -1){

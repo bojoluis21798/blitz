@@ -10,9 +10,10 @@ export const Categories = withRouter(({history}) => {
 
     const show = store.categories.length > 0;
 
-    const handleCategoryClick = (id:number)=> {
+    const handleCategoryClick = (category:Trivia.Category) => {
+        store.activeCategory = category;
         history.push({
-            pathname: "/quiz/"+id,
+            pathname: "/quiz/"+category.id,
             state: {previousScreen: 0}
         });
     }
@@ -41,7 +42,7 @@ export const Categories = withRouter(({history}) => {
                     <S.Category 
                         length={store.categories.length} 
                         key={category.id}
-                        onClick={(e)=>handleCategoryClick(category.id)}
+                        onClick={(e)=>handleCategoryClick(category)}
                     >
                         <S.CategoryLogo name={category.name}/>
                         <S.Name>{category.name}</S.Name>

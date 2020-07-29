@@ -9,40 +9,24 @@ import {useStore} from "../../store";
 import parse from "html-react-parser";
 import {Textfit} from "react-textfit";
 
-interface IQuestion{
+export enum AnswerEval {
+    CORRECT = "correct",
+    WRONG = "wrong",
+}
+
+interface Choice {
+    eval: AnswerEval;
+    text: string;
+    isClicked: boolean;
+}
+
+interface Question{
     category:string;
     correct_answer:string;
     difficulty:string;
     incorrect_answers:string[];
     question:string;
     type:string;
-}
-
-export enum AnswerEval {
-    CORRECT = "correct",
-    WRONG = "wrong",
-}
-
-interface IChoice {
-    eval: AnswerEval;
-    text: string;
-    isClicked: boolean;
-}
-
-interface IQuizStore {
-    questions: IQuestion[];
-    index: number;
-    currentQuestion:string;
-    category: string;
-    timeRemaining: number;
-    hasLoaded:boolean;
-    hasFailed:boolean;
-    hasCompleted:boolean;
-    currentChoices:IChoice[];
-    correctCount: number,
-    next():void;
-    resetTimer():void;
-    pauseTimer():void;
 }
 
 // question length
@@ -62,9 +46,9 @@ let transID:NodeJS.Timeout = null;
 
 export const Quiz = withRouter(({history}) => {
     const {id} = useParams();
-    const {store} = useStore();      
+    const {store} = useStore(); 
 
-    const quizStore = useLocalStore<IQuizStore>(()=>({
+    const quizStore = useLocalStore(()=>({
         questions: [],
         index: 0,
         hasCompleted: false,
@@ -76,7 +60,7 @@ export const Quiz = withRouter(({history}) => {
             return this.questions[this.index].question;
         },
         get currentChoices(){
-            let choices:IChoice[] = [];
+            let choices:Choice[] = [];
 
             this.questions[this.index].incorrect_answers.forEach(answer=>choices.push({
                 text: answer,
@@ -170,6 +154,7 @@ export const Quiz = withRouter(({history}) => {
 
     useEffect(()=>{
         return ()=>{
+            store.activeCategory = null;
             clearTimeout(waitID);
             clearInterval(timerID);
             clearTimeout(transID);
@@ -191,7 +176,7 @@ export const Quiz = withRouter(({history}) => {
         })
     }
 
-    const handleChoiceClick = (choice:IChoice)=>{
+    const handleChoiceClick = (choice:Choice)=>{
         quizStore.pauseTimer();
         
         choice.isClicked = true;
@@ -224,7 +209,7 @@ export const Quiz = withRouter(({history}) => {
                                 <Styled.BackImage/>
                             </Styled.Back>
                             <Styled.TopInfo>
-                                <Styled.Category>{quizStore.category}</Styled.Category>
+                                <Styled.Category>{store.activeCategory.name}</Styled.Category>
                             </Styled.TopInfo>
                         </Styled.Header>
                         <Styled.Question>

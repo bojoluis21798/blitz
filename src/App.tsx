@@ -23,7 +23,7 @@ const AnimatedSwitch = withRouter((router) => {
     });
     const state:Location = router.location.state;
     const previousScreen = state ? state.previousScreen : 0;
-    const animationClassName = currentScreen > previousScreen ? "slide-forward" : "slide-backward";
+    const animationClassName = currentScreen > previousScreen ? "fade" : "slide-backward";
     return(
         <TransitionGroup
             childFactory={child=>

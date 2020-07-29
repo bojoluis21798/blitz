@@ -6,22 +6,25 @@
     }
 }
 
-.slide-forward-enter {
-    transform: translateX(100%);
-    width: 100%;
-    height: 100%;
-    top:0;
-    left:0;
-    position: fixed;
-    transition: transform 500ms ease-out;
-    box-shadow: -1px 0px 20px 2px black;
+.fade-enter {
+    opacity: 0;
 }
 
-.slide-forward-enter-active{
-    transform: translateX(0%);
+.fade-enter-active{
+    opacity: 1;
+    transition: opacity 500ms ease;
 }
 
-.slide-forward-exit, .slide-backward-exit {
+.fade-exit {
+    opacity: 1;
+    transition: opacity 500ms ease;
+}
+
+.fade-exit-active {
+    opacity: 0;
+}
+
+.slide-backward-exit {
     position: absolute;
     z-index: -1;
     top: 0;

@@ -19,30 +19,24 @@ export const Container = styled.div<ContainerProps>`
 `;
 
 export const StatusFinal = styled.span`
-    @media(max-width: 1024px){
-        font-size: 20vw;
-        margin: 5vw;
-    }
-    font-size: 10vw;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    font-size: 5em;
     color:white;
     font-weight: 900;
 `; 
 
 export const OptionsButtons = styled.button`
-    border-radius: 2vw;
-    @media(max-width: 1024px){
-        margin: 1vw;
-        heigth: 45vw;
-        width: 45vw;
-        padding: 2vw;
-        font-size: 8vw;
+    border-radius: 2%;
+    @media(max-width: 768px){
+        width: 80vw;
     }
-    box-shadow: 3px 3px 10px black;
-    font-size: 3vw;
-    margin: 1vw;
-    heigth: 15vw;
+    padding: 1vh 1vw 1vh 1vw;
+    margin: 1vh 1vw 1vh 1vw;
+    height: 15vh;
     width: 30vw;
-    padding: 2vw;
+    font-size: 2em;
+    box-shadow: 3px 3px 10px black;
     background-color: white;
     outline:none;
     border:none;
@@ -51,8 +45,11 @@ export const OptionsButtons = styled.button`
 export const OptionsContainer = styled.div`
     display: flex;
     width: 100%;
+    @media(max-width: 768px){
+        flex-direction: column;
+    }
     justify-content: center;
-    align-items: space-around;
+    align-items: center;
 `;
 
 export const FinalScoreDisplay = styled.div`
@@ -63,23 +60,14 @@ export const FinalScoreDisplay = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    @media(max-width:1024px){
-        width: 50vw;
-        height: 50vw;
-        margin: 2vw;
-        font-size: 30vw;
-    }
-    width: 20vw;
-    height: 20vw;
-    font-size: 1vw;
+    padding: 1em;
+    height: 13em;
+    width: 13em;
 `;
 
 export const FinalScoreText = styled.span`
     font-weight: 400;
-    @media(max-width:1024px){
-        font-size: 10vw;
-    }
-    font-size: 7vw;
+    font-size: 5em;
 `;
 
 export const Question = styled.div`
@@ -88,21 +76,13 @@ export const Question = styled.div`
     justify-content:center;
     align-items:center;
     font-weight: 900;
-    margin: 1vw;
-    @media(max-width:1024px){
-        height: 40vw;
+    margin: 1vh 1vw 1vh 1vw;
+    @media(max-width:768px){
+        height: 25vh;
     }
-    height: 10vw;
+    height: 25vh;
     width: 90%;
     color:white;
-`;
-
-export const Difficulty = styled.div`
-    font-size: 3vw;
-    @media(max-width:1024px){
-        font-size: 5vw;
-    }
-    font-weight: 100;
 `;
 
 interface TimerProps{
@@ -110,8 +90,8 @@ interface TimerProps{
     timeTotal: number;
 }
 export const Timer = styled.div<TimerProps>`
-    height: 2vw;
-    border-radius: 2vw;
+    height: 2vh;
+    border-radius: 2%;
     width: ${props=>(props.timeRemaining)/(props.timeTotal)*100}%;
     background-color: ${props => {
         if((props.timeRemaining)/(props.timeTotal) > 0.5){
@@ -130,7 +110,7 @@ export const Score = styled.div`
 `;
 
 interface ChoicesProps {
-    eval:AnswerEval;
+    eval: AnswerEval;
     reveal:boolean;
     disabled:boolean;
     isClicked: boolean;
@@ -138,9 +118,9 @@ interface ChoicesProps {
 
 export const ChoicesContainer = styled.div`
     display: grid;
-    grid-gap: 3vw;
     grid-template-columns: repeat(2,1fr);
-    @media(max-width:1024px){
+    grid-gap: 1vh 1vw;
+    @media(max-width:768px){
         grid-template-columns:1fr;
     }
 `;
@@ -159,30 +139,21 @@ export const Header = styled.div`
     justify-content:center;
     align-items:center;
     width: 90%;
-    @media(max-width:1024px){
-        padding-top: 5vw;
-    }
-    padding-top: 1vw;
+    padding-top: 2vh;
 `;
 
 export const Category = styled.span`
-    @media(max-width:1024px){
-        font-size: 7vw;
-    }
-    font-size: 4vw;
+    font-size: 2em;
     font-weight: 100;
     color:white;
 `;
 
 export const Back = styled.div`
-    @media(max-width:1024px){
-        height: 10vw;
-        width: 10vw;
-    }
-    height: 4vw;
-    width: 4vw;
+    height: 2em;
+    width: 1.5em;
     position:absolute;
-    left:1%;
+    left: 0.5%;
+    top:1%;
     cursor: pointer;
 `;
 
@@ -203,30 +174,28 @@ export const TopInfo = styled.div`
 `;
 
 export const Choices = styled.button<ChoicesProps>`
-    border-radius: 2vw;
+    border-radius: 2%;
     border:none;
     outline:none;
-    @media(max-width:1024px){
+    @media(max-width:768px){
         width: 85vw;
-        height: 15vw;
-        font-size: 5vw;
+        height: 13vh;
     }
+    height: 15vh;
+    width: 44vw;
+    font-size: 1.5em;
     box-shadow: 2px 2px 10px black;
     display: flex;
     justify-content:center;
     align-items:center;
-    height: 7.5vw;
-    width: 44vw;
-    font-size: 3vw;
     text-align:center;
-    font-weight: 100;
+    font-weight: 300;
     color:black;
+    background-color: white;
     ${props=>{
         if(props.eval === AnswerEval.CORRECT && props.reveal) 
             return `background-color:green; color:white;`;
         else if(props.eval === AnswerEval.WRONG && props.isClicked && props.reveal)
             return 'background-color:red; color:white';
-        else 
-            return `white`;
     }};
 `;

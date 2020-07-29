@@ -7,7 +7,11 @@ module.exports = {
   mode: "production",
   output: {
     path: path.join(__dirname, './build'),
+    publicPath: "/",
     filename: "bundle.js",
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   resolve: {
     extensions: [".js", ".jsx", ".json", ".ts", ".tsx", ".css", ".jpg", ".png"],
